@@ -27,6 +27,14 @@ public class Board
          }
          return null;
     }
+    public int getValue(int x, int y)
+    {
+        return positions[x][y];
+    }
+    public void setValue(int x, int y, int value)
+    {
+        positions[x][y]=value;
+    }
 
     
 }
