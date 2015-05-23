@@ -64,10 +64,10 @@ public class Board
         updatePossibleLocations();
     }
 
-    private void updatePossibleLocations()
+    private List<Point> getPossibleLocations(Piece piece)
     {
-        possibleMovementLocations = new ArrayList<Point>();
-        for (Point location : selectedPiece.listOfPositions())
+        List<Point> locations = new ArrayList<Point>();
+        for (Point location : piece.listOfPositions())
         {
             int x = (int)location.getX();
             int y = (int)location.getY();
@@ -86,9 +86,15 @@ public class Board
                     }
                 }
                 if (addLocation)
-                    possibleMovementLocations.add(location);
+                    locations.add(location);
             }
         }
+        return locations;
+    }
+    
+    private void updatePossibleLocations()
+    {
+        possibleMovementLocations = getPossibleLocations(selectedPiece);
     }
 
     private void updateWinLoss()
@@ -119,7 +125,12 @@ public class Board
 
     private boolean checkLoss()
     {
-        return false;
+        for (Piece piece : pieces)
+        {
+            if (getPossibleLocations(piece).size() > 0)
+                return false;
+        }
+        return true;
     }
 
     public int getValue(int x, int y)
