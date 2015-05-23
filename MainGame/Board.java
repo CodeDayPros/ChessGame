@@ -32,8 +32,6 @@ public class Board
         pieces = new ArrayList<Piece>();
         possibleMovementLocations = new ArrayList<Point>();
         finalLocations = new ArrayList<Point>();
-        pieces.add(new Knight(0, 0));
-        finalLocations.add(new Point(2, 1));
     }
 
     public Piece getPiece(int x, int y)
