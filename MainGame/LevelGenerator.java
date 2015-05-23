@@ -12,13 +12,18 @@ public class LevelGenerator
         currentLevel = 0;
     }
 
-    public void nextLevel()
+    public Board nextLevel()
     {
         currentLevel++;
-        generateLevel();
+        return generateLevel();
+    }
+    
+    public Board restartLevel()
+    {
+        return generateLevel();
     }
 
-    private void generateLevel()
+    private Board generateLevel()
     {
         List<Piece> pieces = new ArrayList<Piece>();
         List<Point> finalLocations = new ArrayList<Point>();
@@ -51,10 +56,6 @@ public class LevelGenerator
             positions[6][7]=1;
         }
         board = new Board(pieces, positions, finalLocations);
-    }
-    
-    public Board getBoard()
-    {
         return board;
     }
 }
