@@ -8,22 +8,16 @@
 import java.awt.image.BufferedImage;
 public abstract class Piece
 {
-    private String name;
-    private BufferedImage image;
     private int xPos;
     private int yPos;
     
-    public Piece(String str, BufferedImage pic, int x, int y)
+    public Piece(int x, int y)
     {
-        name=str;
-        image = pic;
         xPos=x;
         yPos=y;
     }
-    public String getName()
-    {
-        return name;
-    }
+    public abstract String getName();
+    
     public int getX()
     {
         return xPos;
@@ -37,5 +31,7 @@ public abstract class Piece
         xPos=x;
         yPos=y;
     }
+    public abstract BufferedImage getImage();
+    
     
 }
