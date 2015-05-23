@@ -1,6 +1,12 @@
 #BlueJ class context
-comment0.params=str\ pic
-comment0.target=Piece(java.lang.String,\ java.awt.image.BufferedImage)
+comment0.params=str\ pic\ x\ y
+comment0.target=Piece(java.lang.String,\ java.awt.image.BufferedImage,\ int,\ int)
 comment1.params=
 comment1.target=java.lang.String\ getName()
-numComments=2
+comment2.params=
+comment2.target=int\ getX()
+comment3.params=
+comment3.target=int\ getY()
+comment4.params=x\ y
+comment4.target=void\ setPos(int,\ int)
+numComments=5
