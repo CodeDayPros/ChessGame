@@ -6,6 +6,9 @@
  * @version (a version number or a date)
  */
 import java.awt.image.BufferedImage;
+import java.awt.Point;
+import java.util.ArrayList;
+import java.util.List;
 public abstract class Piece
 {
     private int xPos;
@@ -32,6 +35,7 @@ public abstract class Piece
         yPos=y;
     }
     public abstract BufferedImage getImage();
+    public abstract List<Point> listOfPositions();
     
     
 }

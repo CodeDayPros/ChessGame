@@ -11,4 +11,6 @@ comment4.params=x\ y
 comment4.target=void\ setPos(int,\ int)
 comment5.params=
 comment5.target=java.awt.image.BufferedImage\ getImage()
-numComments=6
+comment6.params=
+comment6.target=java.util.List\ listOfPositions()
+numComments=7

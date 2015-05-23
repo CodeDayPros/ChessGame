@@ -9,6 +9,9 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.awt.Point;
+import java.util.ArrayList;
+import java.util.List;
 public class Knight extends Piece
 {
      public Knight(int x, int y)
@@ -29,5 +32,9 @@ public class Knight extends Piece
     public String getName()
     {
         return "Knight";
+    }
+    public List<Point> listOfPositions()
+    {
+        return new ArrayList<Point>();
     }
 }
