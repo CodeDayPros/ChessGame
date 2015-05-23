@@ -64,7 +64,8 @@ public class Board
         {
             int x = (int)location.getX();
             int y = (int)location.getY();
-            if (getPiece(x, y) == null && getValue(x, y) > 0)
+            if (x >= 0 && x <= 7 && y >= 0 && y <= 7
+            && getPiece(x, y) == null && getValue(x, y) > 0)
                 possibleMovementLocations.add(location);
         }
     }
