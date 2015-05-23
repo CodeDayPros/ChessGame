@@ -6,7 +6,7 @@
  * @version (a version number or a date)
  */
 import java.awt.image.BufferedImage;
-public class Piece
+public abstract class Piece
 {
     private String name;
     private BufferedImage image;
