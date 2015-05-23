@@ -22,7 +22,8 @@ public class GUI extends Applet implements ActionListener, MouseListener
         
         board = new Board();
         board.setValue(0, 1, 1); //remove this shit later
-
+        board.setValue(2, 1, 1);
+        addMouseListener(this);
         int delay = 20; //milliseconds
         ActionListener taskPerformer = new ActionListener() 
             {
@@ -70,7 +71,7 @@ public class GUI extends Applet implements ActionListener, MouseListener
     }
 
     public void mouseClicked(MouseEvent e) {
-       
+       board.clickOnBoard(e.getX(), e.getY());
     }
 }
 

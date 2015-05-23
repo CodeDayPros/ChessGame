@@ -35,6 +35,8 @@ public class Knight extends Piece
     }
     public List<Point> listOfPositions()
     {
-        return new ArrayList<Point>();
+        List<Point> points = new ArrayList<Point>();
+        points.add(new Point(getX()+2, getY()+1));
+        return points;
     }
 }
