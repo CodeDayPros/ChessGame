@@ -12,14 +12,17 @@ import java.awt.*;
 public class Board
 {
     private List<Piece> pieces;
-    private Piece selectedPiece;
     private int[][] positions;
+    private List<Point> finalLocations;
+
+    private Piece selectedPiece;
     private List<Point> possibleMovementLocations;
 
-    public Board(ArrayList<Piece> x, int[][] p)
+    public Board(List<Piece> x, int[][] p, List<Point> l)
     {
-        positions= p;
-        pieces=x;
+        positions = p;
+        pieces = x;
+        finalLocations = l;
         possibleMovementLocations = new ArrayList<Point>();
     }
 
@@ -28,7 +31,9 @@ public class Board
         positions= new int[8][8]; 
         pieces = new ArrayList<Piece>();
         possibleMovementLocations = new ArrayList<Point>();
+        finalLocations = new ArrayList<Point>();
         pieces.add(new Knight(0, 0));
+        finalLocations.add(new Point(2, 1));
     }
 
     public Piece getPiece(int x, int y)
@@ -49,8 +54,13 @@ public class Board
     public void selectPiece(Piece piece)
     {
         selectedPiece = piece;
+        updatePossibleLocations();
+    }
+
+    private void updatePossibleLocations()
+    {
         possibleMovementLocations = new ArrayList<Point>();
-        for (Point location : piece.listOfPositions())
+        for (Point location : selectedPiece.listOfPositions())
         {
             int x = (int)location.getX();
             int y = (int)location.getY();
@@ -77,22 +87,36 @@ public class Board
             {
                 int valueAtPosition = getValue(x, y);
                 if (valueAtPosition == 0)
-                    g.setColor(Color.WHITE);
+                    g.setColor(Color.GRAY);
                 else
                     g.setColor(Color.RED);
                 g.fillRect(x*50, y*50, 50, 50);
 
                 g.setColor(Color.BLACK);
                 g.drawRect(x*50, y*50, 50, 50);
-
-                Piece piece = getPiece(x, y);
-                if (piece != null)
-                    g.drawImage(piece.getImage(), x*50, y*50, 50, 50, null);
             }
         }
+
+        for (Point location : finalLocations)
+        {
+            for (int pos = 0; pos <= 50; pos += 5)
+            {
+                int x = (int)location.getX()*50;
+                int y = (int)location.getY()*50;
+                g.setColor(Color.WHITE);
+                g.drawLine(x, y+pos, x+pos, y);
+                g.drawLine(x + 50, y + 50 - pos, x + 50 - pos, y + 50);
+            }
+        }
+
+        for (Piece piece : pieces)
+        {
+            g.drawImage(piece.getImage(), piece.getX()*50, piece.getY()*50, 50, 50, null);
+        }
+
         for (Point location : possibleMovementLocations)
         {
-            g.setColor(Color.YELLOW);
+            g.setColor(Color.GREEN);
             g.drawRect((int)location.getX()*50, (int)location.getY()*50, 50, 50);
         }
     }
@@ -106,6 +130,18 @@ public class Board
         Piece piece = getPiece(gridX, gridY);
         if (piece != null)
             selectPiece(piece);
+        else
+        {
+            for (Point location : possibleMovementLocations)
+            {
+                if (gridX == (int)location.getX() && gridY == (int)location.getY())
+                {
+                    selectedPiece.setPos(gridX, gridY);
+                    setValue(gridX, gridY, getValue(gridX, gridY) - 1);
+                    updatePossibleLocations();
+                }
+            }
+        }
     }
 
 }
