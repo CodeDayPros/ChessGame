@@ -23,6 +23,7 @@ public class GUI extends Applet implements ActionListener, MouseListener
         board = new Board();
         board.setValue(0, 1, 1); //remove this shit later
         board.setValue(2, 1, 1);
+        board.setValue(4,0,1);
         addMouseListener(this);
         int delay = 20; //milliseconds
         ActionListener taskPerformer = new ActionListener() 
