@@ -9,7 +9,7 @@ public class LevelGenerator
 
     public LevelGenerator()
     {
-        currentLevel = 0;
+        currentLevel = 2;
     }
 
     public Board nextLevel()
@@ -55,6 +55,25 @@ public class LevelGenerator
             positions[3][7]=1;
             positions[6][7]=1;
         }
+        if(currentLevel==3)
+        {
+            pieces.add(new Bishop(1,7));
+            pieces.add(new Knight(6,3));
+            finalLocations.add(new Point(5,3));
+            finalLocations.add(new Point(1,5));
+            positions[5][3]=1;
+            positions[1][5]=1;
+            positions[5][1]=1;
+            positions[3][2]=1;
+            positions[3][3]=1;
+            positions[7][2]=1;
+            positions[4][4]=1;
+            positions[5][5]=1;
+            positions[0][6]=1;
+            positions[3][7]=1;
+            
+        }
+        
         board = new Board(pieces, positions, finalLocations);
         return board;
     }
