@@ -7,7 +7,7 @@ import java.awt.image.*;
 import java.io.*;
 import javax.imageio.*;
 
-public class GUI extends Applet implements ActionListener
+public class GUI extends Applet implements ActionListener, MouseListener
 {
     Graphics graphics;
     Image image;
@@ -51,6 +51,26 @@ public class GUI extends Applet implements ActionListener
         board.drawBoard(graphics);
         
         g.drawImage(image, 0, 0, this);
+    }
+    
+    public void mousePressed(MouseEvent e) {
+       
+    }
+
+    public void mouseReleased(MouseEvent e) {
+       
+    }
+
+    public void mouseEntered(MouseEvent e) {
+      
+    }
+
+    public void mouseExited(MouseEvent e) {
+       
+    }
+
+    public void mouseClicked(MouseEvent e) {
+       
     }
 }
 
