@@ -42,6 +42,19 @@ public class LevelGenerator
             positions[2][5]=1;
             positions[1][2]=1;
         }
+        if(currentLevel==2)
+        {
+            pieces.add(new Rook(6,5));
+            finalLocations.add(new Point(2,7));
+            positions[2][7]=1;
+            positions[0][0]=1;
+            positions[0][2]=1;
+            positions[3][0]=1;
+            positions[3][2]=1;
+            positions[3][5]=1;
+            positions[3][7]=1;
+            positions[6][7]=1;
+        }
         board = new Board(pieces, positions, finalLocations);
         return board;
     }
