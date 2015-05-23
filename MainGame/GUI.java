@@ -21,57 +21,60 @@ public class GUI extends Applet implements ActionListener, MouseListener
         image = createImage(WIDTH,HEIGHT);
         graphics = image.getGraphics();
         generator = new LevelGenerator();
-        generator.nextLevel();
-        board = generator.getBoard();
-        
+        board = generator.nextLevel();
+
         addMouseListener(this);
         int delay = 20; //milliseconds
         ActionListener taskPerformer = new ActionListener() 
             {
                 public void actionPerformed(ActionEvent evt) 
                 {
+                    if (board.getState() == BoardState.WON)
+                        board = generator.nextLevel();
+                    else if (board.getState() == BoardState.LOST)
+                        board = generator.restartLevel();
                     repaint();
                 }
             };
         new Timer(delay, taskPerformer).start();
     }
-    
+
     public void actionPerformed(ActionEvent ae)
     {
     }
-    
+
     public void update(Graphics g)
     {
         paint(g);
     }
 
     public void paint(Graphics g)
-    {   
+    {      
         graphics.clearRect(0, 0, WIDTH, HEIGHT);
-        
+
         board.drawBoard(graphics);
-        
+
         g.drawImage(image, 0, 0, this);
     }
-    
+
     public void mousePressed(MouseEvent e) {
-       
+
     }
 
     public void mouseReleased(MouseEvent e) {
-       
+
     }
 
     public void mouseEntered(MouseEvent e) {
-      
+
     }
 
     public void mouseExited(MouseEvent e) {
-       
+
     }
 
     public void mouseClicked(MouseEvent e) {
-       board.clickOnBoard(e.getX(), e.getY());
+        board.clickOnBoard(e.getX(), e.getY());
     }
 }
 

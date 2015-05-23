@@ -17,6 +17,8 @@ public class Board
 
     private Piece selectedPiece;
     private List<Point> possibleMovementLocations;
+    
+    private BoardState state;
 
     public Board(List<Piece> x, int[][] p, List<Point> l)
     {
@@ -24,6 +26,7 @@ public class Board
         pieces = x;
         finalLocations = l;
         possibleMovementLocations = new ArrayList<Point>();
+        state = BoardState.NONE;
     }
 
     public Board()
@@ -32,6 +35,12 @@ public class Board
         pieces = new ArrayList<Piece>();
         possibleMovementLocations = new ArrayList<Point>();
         finalLocations = new ArrayList<Point>();
+        state = BoardState.NONE;
+    }
+    
+    public BoardState getState()
+    {
+        return state;
     }
 
     public Piece getPiece(int x, int y)
@@ -66,6 +75,37 @@ public class Board
             && getPiece(x, y) == null && getValue(x, y) > 0)
                 possibleMovementLocations.add(location);
         }
+    }
+
+    private void updateWinLoss()
+    {
+        if (checkWin())
+            state = BoardState.WON;
+        else if (checkLoss())
+            state = BoardState.LOST;
+    }
+
+    private boolean checkWin()
+    {
+        for (int x = 0; x < 8; x++)
+        {
+            for (int y = 0; y < 8; y++)
+            {
+                if (getValue(x, y) > 0)
+                    return false;
+            }
+        }
+        for (Point location : finalLocations)
+        {
+            if (getPiece((int)location.getX(), (int)location.getY()) == null)
+                return false;
+        }
+        return true;
+    }
+
+    private boolean checkLoss()
+    {
+        return false;
     }
 
     public int getValue(int x, int y)
@@ -138,6 +178,8 @@ public class Board
                     selectedPiece.setPos(gridX, gridY);
                     setValue(gridX, gridY, getValue(gridX, gridY) - 1);
                     updatePossibleLocations();
+                    updateWinLoss();
+                    return;
                 }
             }
         }
