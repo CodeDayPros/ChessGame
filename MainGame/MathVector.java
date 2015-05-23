@@ -27,9 +27,9 @@ public class MathVector
         return y;
     }
     
-    public int magnitude()
+    public double magnitude()
     {
-        return x*x + y*y;
+        return Math.sqrt((double)x*x + y*y);
     }
     
     public int dotProduct(MathVector other)

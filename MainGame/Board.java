@@ -74,14 +74,19 @@ public class Board
             if (x >= 0 && x <= 7 && y >= 0 && y <= 7
             && getPiece(x, y) == null && getValue(x, y) > 0)
             {
+                boolean addLocation = true;
                 for (Piece otherPiece : pieces)
                 {
                     MathVector u = new MathVector((int)(otherPiece.getX() - selectedPiece.getX()), (int)(otherPiece.getY() - selectedPiece.getY()));
                     MathVector v = new MathVector((int)(x - selectedPiece.getX()), (int)(y - selectedPiece.getY()));
-                    if (u.dotProduct(v) == 1 && u.magnitude() < v.magnitude())
-                        return;
+                    if (Math.abs(u.dotProduct(v)/(u.magnitude()*v.magnitude()) - 1) < 0.0001 && u.magnitude() < v.magnitude())
+                    {
+                        addLocation = false;
+                        break;
+                    }
                 }
-                possibleMovementLocations.add(location);
+                if (addLocation)
+                    possibleMovementLocations.add(location);
             }
         }
     }
