@@ -73,7 +73,16 @@ public class Board
             int y = (int)location.getY();
             if (x >= 0 && x <= 7 && y >= 0 && y <= 7
             && getPiece(x, y) == null && getValue(x, y) > 0)
+            {
+                for (Piece otherPiece : pieces)
+                {
+                    MathVector u = new MathVector((int)(otherPiece.getX() - selectedPiece.getX()), (int)(otherPiece.getY() - selectedPiece.getY()));
+                    MathVector v = new MathVector((int)(x - selectedPiece.getX()), (int)(y - selectedPiece.getY()));
+                    if (u.dotProduct(v) == 1 && u.magnitude() < v.magnitude())
+                        return;
+                }
                 possibleMovementLocations.add(location);
+            }
         }
     }
 
