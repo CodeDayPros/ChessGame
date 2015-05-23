@@ -19,7 +19,7 @@ public class Knight extends Piece
     {
         
         try {
-         BufferedImage image= ImageIO.read(new File("Knight"));
+         BufferedImage image= ImageIO.read(new File("Knight.png"));
          return image;
         } catch (IOException e) {
             e.printStackTrace();
