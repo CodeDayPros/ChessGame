@@ -13,6 +13,7 @@ public class GUI extends Applet implements ActionListener, MouseListener
     Image image;
     Button retryButton;
     Button nextLevelButton;
+    Button startButton;
     final int WIDTH = 400;
     final int HEIGHT = 435;
     Board board;
@@ -23,13 +24,13 @@ public class GUI extends Applet implements ActionListener, MouseListener
         image = createImage(WIDTH,HEIGHT);
         graphics = image.getGraphics();
         generator = new LevelGenerator();
-        board = generator.nextLevel();
         this.setLayout(null);
         this.resize(WIDTH,HEIGHT);
         addMouseListener(this);
         
         retryButton = new Button("Retry Level");
         retryButton.addActionListener(this);
+        retryButton.setVisible(false);
         add(retryButton);
         retryButton.setBounds(WIDTH-85, 405, 80, 30);
         
@@ -39,12 +40,17 @@ public class GUI extends Applet implements ActionListener, MouseListener
         add(nextLevelButton);
         nextLevelButton.setBounds(WIDTH/2-40, 200, 80, 30);
         
+        startButton = new Button("Start Game");
+        startButton.addActionListener(this);
+        add(startButton);
+        startButton.setBounds(WIDTH/2-40, 250, 80, 30);
+        
         int delay = 20; //milliseconds
         ActionListener taskPerformer = new ActionListener() 
             {
                 public void actionPerformed(ActionEvent evt) 
                 {
-                    if (board.getState() == BoardState.WON)
+                    if (board != null && board.getState() == BoardState.WON)
                     {
                         nextLevelButton.setVisible(true);
                         retryButton.setEnabled(false);
@@ -67,6 +73,12 @@ public class GUI extends Applet implements ActionListener, MouseListener
             nextLevelButton.setVisible(false);
             retryButton.setEnabled(true);
         }
+        if (ae.getSource() == startButton)
+        {
+            board = generator.nextLevel();
+            startButton.setVisible(false);
+            retryButton.setVisible(true);
+        }
     }
 
     public void update(Graphics g)
@@ -77,7 +89,8 @@ public class GUI extends Applet implements ActionListener, MouseListener
     public void paint(Graphics g)
     {      
         graphics.clearRect(0, 0, WIDTH, HEIGHT);
-        board.drawBoard(graphics);
+        if (generator.getCurrentLevel() > 0)
+            board.drawBoard(graphics);
         graphics.setColor(Color.BLACK);
         graphics.setFont(new Font("Arial", Font.BOLD, 16));
         graphics.drawString("Level " + generator.getCurrentLevel(), 5, 425);
