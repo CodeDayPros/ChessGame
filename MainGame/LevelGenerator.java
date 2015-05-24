@@ -96,6 +96,25 @@ public class LevelGenerator
         }
         if(currentLevel==5)
         {
+            pieces.add(new Knight(3,4));
+            pieces.add(new Rook(1,5));
+            pieces.add(new Bishop(5,2));
+            finalLocations.add(new Point(2,2));
+            finalLocations.add(new Point(6,7));
+            finalLocations.add(new Point(1,7));
+            positions[2][2]=1;
+            positions[6][7]=1;
+            positions[1][7]=1;
+            positions[3][2]=1;
+            positions[7][4]=1;
+            positions[3][5]=1;
+            positions[3][6]=1;
+            positions[3][7]=1;
+            positions[5][5]=1;
+            positions[5][6]=1;
+        }
+        if(currentLevel==6)
+        {
             pieces.add(new Knight(5,2));
             pieces.add(new Bishop(1,1));
             pieces.add(new Bishop(1,4));
@@ -115,7 +134,7 @@ public class LevelGenerator
             positions[6][5]=1;
             positions[2][6]=1;
         }
-        if(currentLevel==6)
+        if(currentLevel==7)
         {
             pieces.add(new Rook(1,1));
             pieces.add(new Knight(5,2));
@@ -138,7 +157,7 @@ public class LevelGenerator
             positions[4][5]=1;
             positions[6][5]=1;
         }
-        if(currentLevel==7)
+        if(currentLevel==8)
         {
             pieces.add(new King(3,3));
             pieces.add(new Rook(2,7));
@@ -166,7 +185,7 @@ public class LevelGenerator
             positions[4][3]=1;
             positions[3][4]=1;
         }
-        if(currentLevel==8)
+        if(currentLevel==9)
         {
             pieces.add(new Knight(4,0));
             finalLocations.add(new Point(4,3));
@@ -184,3 +203,4 @@ public class LevelGenerator
         return board;
     }
 }
+
