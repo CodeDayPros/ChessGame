@@ -22,6 +22,11 @@ public class LevelGenerator
     {
         return generateLevel();
     }
+    
+    public int getCurrentLevel()
+    {
+        return currentLevel;
+    }
 
     private Board generateLevel()
     {

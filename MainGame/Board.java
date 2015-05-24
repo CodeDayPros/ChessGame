@@ -152,8 +152,12 @@ public class Board
                 int valueAtPosition = getValue(x, y);
                 if (valueAtPosition == 0)
                     g.setColor(Color.GRAY);
-                else
+                else if (valueAtPosition == 1)
                     g.setColor(Color.RED);
+                else if (valueAtPosition == 2)
+                    g.setColor(Color.YELLOW);
+                else
+                    g.setColor(Color.MAGENTA);
                 g.fillRect(x*50, y*50, 50, 50);
 
                 g.setColor(Color.BLACK);

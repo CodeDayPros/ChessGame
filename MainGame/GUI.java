@@ -11,8 +11,9 @@ public class GUI extends Applet implements ActionListener, MouseListener
 {
     Graphics graphics;
     Image image;
-    final int WIDTH = 500;
-    final int HEIGHT = 500;
+    Button retryButton;
+    final int WIDTH = 400;
+    final int HEIGHT = 430;
     Board board;
     LevelGenerator generator;
 
@@ -22,8 +23,15 @@ public class GUI extends Applet implements ActionListener, MouseListener
         graphics = image.getGraphics();
         generator = new LevelGenerator();
         board = generator.nextLevel();
-
+        this.setLayout(null);
+        this.resize(WIDTH,HEIGHT);
         addMouseListener(this);
+        
+        retryButton = new Button("Retry Level!");
+        retryButton.addActionListener(this);
+        add(retryButton);
+        retryButton.setBounds(WIDTH-80, 405, 75, 25);
+        
         int delay = 20; //milliseconds
         ActionListener taskPerformer = new ActionListener() 
             {
@@ -41,6 +49,10 @@ public class GUI extends Applet implements ActionListener, MouseListener
 
     public void actionPerformed(ActionEvent ae)
     {
+        if (ae.getSource() == retryButton)
+        {
+            board = generator.restartLevel();
+        }
     }
 
     public void update(Graphics g)
@@ -51,9 +63,9 @@ public class GUI extends Applet implements ActionListener, MouseListener
     public void paint(Graphics g)
     {      
         graphics.clearRect(0, 0, WIDTH, HEIGHT);
-
         board.drawBoard(graphics);
-
+        graphics.setColor(Color.BLACK);
+        graphics.drawString("Level " + generator.getCurrentLevel(), 5, 420);
         g.drawImage(image, 0, 0, this);
     }
 
