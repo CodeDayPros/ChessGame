@@ -17,7 +17,7 @@ public class Board
 
     private Piece selectedPiece;
     private List<Point> possibleMovementLocations;
-    
+
     private BoardState state;
 
     public Board(List<Piece> x, int[][] p, List<Point> l)
@@ -37,7 +37,7 @@ public class Board
         finalLocations = new ArrayList<Point>();
         state = BoardState.NONE;
     }
-    
+
     public BoardState getState()
     {
         return state;
@@ -91,7 +91,7 @@ public class Board
         }
         return locations;
     }
-    
+
     private void updatePossibleLocations()
     {
         possibleMovementLocations = getPossibleLocations(selectedPiece);
@@ -191,24 +191,27 @@ public class Board
 
     public void clickOnBoard(int x, int y)
     {
-        int gridX = x/50;
-        int gridY = y/50;
-        if (gridX < 0 || gridX > 7 || gridY < 0 || gridY > 7)
-            return;
-        Piece piece = getPiece(gridX, gridY);
-        if (piece != null)
-            selectPiece(piece);
-        else
+        if (state == BoardState.NONE)
         {
-            for (Point location : possibleMovementLocations)
+            int gridX = x/50;
+            int gridY = y/50;
+            if (gridX < 0 || gridX > 7 || gridY < 0 || gridY > 7)
+                return;
+            Piece piece = getPiece(gridX, gridY);
+            if (piece != null)
+                selectPiece(piece);
+            else
             {
-                if (gridX == (int)location.getX() && gridY == (int)location.getY())
+                for (Point location : possibleMovementLocations)
                 {
-                    selectedPiece.setPos(gridX, gridY);
-                    setValue(gridX, gridY, getValue(gridX, gridY) - 1);
-                    updatePossibleLocations();
-                    updateWinLoss();
-                    return;
+                    if (gridX == (int)location.getX() && gridY == (int)location.getY())
+                    {
+                        selectedPiece.setPos(gridX, gridY);
+                        setValue(gridX, gridY, getValue(gridX, gridY) - 1);
+                        updatePossibleLocations();
+                        updateWinLoss();
+                        return;
+                    }
                 }
             }
         }
