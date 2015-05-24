@@ -27,24 +27,24 @@ public class GUI extends Applet implements ActionListener, MouseListener
         this.setLayout(null);
         this.resize(WIDTH,HEIGHT);
         addMouseListener(this);
-        
+
         retryButton = new Button("Retry Level");
         retryButton.addActionListener(this);
         retryButton.setVisible(false);
         add(retryButton);
         retryButton.setBounds(WIDTH-85, 405, 80, 30);
-        
+
         nextLevelButton = new Button("Next Level");
         nextLevelButton.addActionListener(this);
         nextLevelButton.setVisible(false);
         add(nextLevelButton);
         nextLevelButton.setBounds(WIDTH/2-40, 200, 80, 30);
-        
+
         startButton = new Button("Start Game");
         startButton.addActionListener(this);
         add(startButton);
         startButton.setBounds(WIDTH/2-40, 250, 80, 30);
-        
+
         int delay = 20; //milliseconds
         ActionListener taskPerformer = new ActionListener() 
             {
@@ -90,25 +90,34 @@ public class GUI extends Applet implements ActionListener, MouseListener
     {      
         graphics.clearRect(0, 0, WIDTH, HEIGHT);
         if (generator.getCurrentLevel() > 0)
+        {
             board.drawBoard(graphics);
-        graphics.setColor(Color.BLACK);
-        graphics.setFont(new Font("Arial", Font.BOLD, 16));
-        graphics.drawString("Level " + generator.getCurrentLevel(), 5, 425);
-        if (board.getState() == BoardState.WON)
-        {
-            graphics.setColor(new Color(255, 255, 255, 200));
-            graphics.fillRect(WIDTH/2-100, 165, 200, 70);
             graphics.setColor(Color.BLACK);
-            graphics.setFont(new Font("Arial", Font.BOLD, 20));
-            graphics.drawString("You Win!", WIDTH/2-42, 190);
+            graphics.setFont(new Font("Arial", Font.BOLD, 16));
+            graphics.drawString("Level " + generator.getCurrentLevel(), 5, 425);
+            if (board.getState() == BoardState.WON)
+            {
+                graphics.setColor(new Color(255, 255, 255, 200));
+                graphics.fillRect(WIDTH/2-100, 165, 200, 70);
+                graphics.setColor(Color.BLACK);
+                graphics.setFont(new Font("Arial", Font.BOLD, 20));
+                graphics.drawString("You Win!", WIDTH/2-42, 190);
+            }
+            else if (board.getState() == BoardState.LOST)
+            {
+                graphics.setColor(new Color(255, 255, 255, 200));
+                graphics.fillRect(WIDTH/2-100, 185, 200, 30);
+                graphics.setColor(Color.BLACK);
+                graphics.setFont(new Font("Arial", Font.BOLD, 20));
+                graphics.drawString("You Lost!", WIDTH/2-45, 207);
+            }
         }
-        else if (board.getState() == BoardState.LOST)
+        else
         {
-            graphics.setColor(new Color(255, 255, 255, 200));
-            graphics.fillRect(WIDTH/2-100, 185, 200, 30);
             graphics.setColor(Color.BLACK);
-            graphics.setFont(new Font("Arial", Font.BOLD, 20));
-            graphics.drawString("You Lost!", WIDTH/2-45, 207);
+            graphics.setFont(new Font("Arial", Font.BOLD, 30));
+            graphics.drawString("I Can't Believe", 0, 190);
+            graphics.drawString("I Can't Believe", 0, 222);
         }
         g.drawImage(image, 0, 0, this);
     }
