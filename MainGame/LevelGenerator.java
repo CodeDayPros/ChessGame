@@ -129,8 +129,9 @@ public class LevelGenerator
             positions[4][3]=1;
             positions[3][4]=1;
         }
-        
         board = new Board(pieces, positions, finalLocations);
+        if (pieces.size() == 1)
+            board.selectPiece(pieces.get(0));
         return board;
     }
 }
