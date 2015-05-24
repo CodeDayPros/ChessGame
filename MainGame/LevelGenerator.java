@@ -33,6 +33,8 @@ public class LevelGenerator
         List<Piece> pieces = new ArrayList<Piece>();
         List<Point> finalLocations = new ArrayList<Point>();
         int[][] positions = new int[8][8];
+        
+        
         if (currentLevel == 1)
         {
             pieces.add(new Knight(2, 0));
@@ -62,6 +64,20 @@ public class LevelGenerator
         }
         if(currentLevel==3)
         {
+            pieces.add(new Bishop(2,5));
+            finalLocations.add(new Point(2,1));
+            positions[3][0]=1;
+            positions[2][1]=1;
+            positions[5][2]=1;
+            positions[0][3]=1;
+            positions[4][3]=1;
+            positions[3][6]=1;
+            positions[6][5]=1;
+            positions[3][6]=1;
+            positions[4][7]=1;
+        }
+        if(currentLevel==4)
+        {
             pieces.add(new Bishop(1,7));
             pieces.add(new Knight(6,3));
             finalLocations.add(new Point(5,3));
@@ -78,7 +94,7 @@ public class LevelGenerator
             positions[3][7]=1;
             
         }
-        if(currentLevel==4)
+        if(currentLevel==5)
         {
             pieces.add(new Rook(1,1));
             pieces.add(new Knight(5,2));
@@ -101,7 +117,7 @@ public class LevelGenerator
             positions[4][5]=1;
             positions[6][5]=1;
         }
-        if(currentLevel==5)
+        if(currentLevel==6)
         {
             pieces.add(new King(3,3));
             pieces.add(new Rook(2,7));
@@ -113,11 +129,11 @@ public class LevelGenerator
             finalLocations.add(new Point(2,3));
             finalLocations.add(new Point(4,3));
             finalLocations.add(new Point(3,4));
-            positions[3][1]=1;
-            positions[4][2]=3;
-            positions[5][2]=1;
-            positions[4][4]=1;
-            positions[5][4]=1;
+           // positions[3][1]=1;
+            positions[4][2]=2;
+            positions[5][2]=2;
+           // positions[4][4]=1;
+            positions[5][4]=2;
             positions[2][4]=1;
             positions[3][4]=1;
             positions[1][6]=1;
