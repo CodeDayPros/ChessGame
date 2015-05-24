@@ -11,9 +11,11 @@ public class GUI extends Applet implements ActionListener, MouseListener
 {
     Graphics graphics;
     Image image;
+    Image titleImage;
     Button retryButton;
     Button nextLevelButton;
     Button startButton;
+    Button instructionButton;
     final int WIDTH = 400;
     final int HEIGHT = 435;
     Board board;
@@ -22,6 +24,14 @@ public class GUI extends Applet implements ActionListener, MouseListener
     public void init()
     { 
         image = createImage(WIDTH,HEIGHT);
+        try 
+        {
+            titleImage = ImageIO.read(new File("butter.png"));
+        } 
+        catch (IOException e) 
+        {
+            e.printStackTrace();
+        }
         graphics = image.getGraphics();
         generator = new LevelGenerator();
         this.setLayout(null);
@@ -43,7 +53,12 @@ public class GUI extends Applet implements ActionListener, MouseListener
         startButton = new Button("Start Game");
         startButton.addActionListener(this);
         add(startButton);
-        startButton.setBounds(WIDTH/2-40, 250, 80, 30);
+        startButton.setBounds(WIDTH/2-40, 320, 80, 30);
+        
+        instructionButton = new Button("Instructions");
+        instructionButton.addActionListener(this);
+        add(instructionButton);
+        instructionButton.setBounds(WIDTH/2-40, 355, 80, 30);
 
         int delay = 20; //milliseconds
         ActionListener taskPerformer = new ActionListener() 
@@ -77,7 +92,12 @@ public class GUI extends Applet implements ActionListener, MouseListener
         {
             board = generator.nextLevel();
             startButton.setVisible(false);
+            instructionButton.setVisible(false);
             retryButton.setVisible(true);
+        }
+        if (ae.getSource() == instructionButton)
+        {
+            //show instructions
         }
     }
 
@@ -113,12 +133,7 @@ public class GUI extends Applet implements ActionListener, MouseListener
             }
         }
         else
-        {
-            graphics.setColor(Color.BLACK);
-            graphics.setFont(new Font("Arial", Font.BOLD, 30));
-            graphics.drawString("I Can't Believe", 0, 190);
-            graphics.drawString("I Can't Believe", 0, 222);
-        }
+            graphics.drawImage(titleImage, 50, 75, 300, 200, null);
         g.drawImage(image, 0, 0, this);
     }
 
