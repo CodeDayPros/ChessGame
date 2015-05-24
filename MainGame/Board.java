@@ -15,6 +15,10 @@ public class Board
     private int[][] positions;
     private List<Point> finalLocations;
 
+    private Point previousLoc;
+    private Point newLoc;
+    private int animationTimer;
+
     private Piece selectedPiece;
     private List<Point> possibleMovementLocations;
 
@@ -27,15 +31,12 @@ public class Board
         finalLocations = l;
         possibleMovementLocations = new ArrayList<Point>();
         state = BoardState.NONE;
+        animationTimer = -1;
     }
 
     public Board()
     {
-        positions= new int[8][8]; 
-        pieces = new ArrayList<Piece>();
-        possibleMovementLocations = new ArrayList<Point>();
-        finalLocations = new ArrayList<Point>();
-        state = BoardState.NONE;
+        this(new ArrayList<Piece>(), new int[8][8], new ArrayList<Point>());
     }
 
     public BoardState getState()
@@ -186,7 +187,17 @@ public class Board
 
         for (Piece piece : pieces)
         {
-            g.drawImage(piece.getImage(), piece.getX()*50, piece.getY()*50, 50, 50, null);
+            if (animationTimer < 0 || piece != selectedPiece)
+                g.drawImage(piece.getImage(), piece.getX()*50, piece.getY()*50, 50, 50, null);
+        }
+
+        if (animationTimer >= 0)
+        {
+            g.drawImage(selectedPiece.getImage(),
+                (int)((newLoc.getX() + (previousLoc.getX() - newLoc.getX())*(animationTimer/10.))*50+0.5),
+                (int)((newLoc.getY() + (previousLoc.getY() - newLoc.getY())*(animationTimer/10.))*50+0.5),
+                50, 50, null);
+            animationTimer--;
         }
 
         for (Point location : possibleMovementLocations)
@@ -198,7 +209,7 @@ public class Board
 
     public void clickOnBoard(int x, int y)
     {
-        if (state == BoardState.NONE)
+        if (state == BoardState.NONE && animationTimer == -1)
         {
             int gridX = x/50;
             int gridY = y/50;
@@ -213,6 +224,9 @@ public class Board
                 {
                     if (gridX == (int)location.getX() && gridY == (int)location.getY())
                     {
+                        previousLoc = new Point(selectedPiece.getX(), selectedPiece.getY());
+                        newLoc = new Point(gridX, gridY);
+                        animationTimer = 10;
                         selectedPiece.setPos(gridX, gridY);
                         setValue(gridX, gridY, getValue(gridX, gridY) - 1);
                         updatePossibleLocations();
