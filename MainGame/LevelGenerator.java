@@ -113,11 +113,11 @@ public class LevelGenerator
             finalLocations.add(new Point(2,3));
             finalLocations.add(new Point(4,3));
             finalLocations.add(new Point(3,4));
-            positions[3][1]=1;
-            positions[4][2]=3;
-            positions[5][2]=1;
-            positions[4][4]=1;
-            positions[5][4]=1;
+           // positions[3][1]=1;
+            positions[4][2]=2;
+            positions[5][2]=2;
+           // positions[4][4]=1;
+            positions[5][4]=2;
             positions[2][4]=1;
             positions[3][4]=1;
             positions[1][6]=1;
