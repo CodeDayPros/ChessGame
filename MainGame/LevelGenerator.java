@@ -27,6 +27,12 @@ public class LevelGenerator
     {
         return currentLevel;
     }
+    
+    public void resetGame()
+    {
+        board = null;
+        currentLevel = 0;
+    }
 
     private Board generateLevel()
     {

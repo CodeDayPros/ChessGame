@@ -14,6 +14,7 @@ public class GUI extends Applet implements ActionListener, MouseListener
     Image titleImage;
     Button retryButton;
     Button nextLevelButton;
+    Button finishButton;
     Button startButton;
     Button instructionButton;
     final int WIDTH = 400;
@@ -46,15 +47,21 @@ public class GUI extends Applet implements ActionListener, MouseListener
 
         nextLevelButton = new Button("Next Level");
         nextLevelButton.addActionListener(this);
-        nextLevelButton.setVisible(false);
         add(nextLevelButton);
         nextLevelButton.setBounds(WIDTH/2-40, 200, 80, 30);
+        nextLevelButton.setVisible(false);
+
+        finishButton = new Button("Finish");
+        finishButton.addActionListener(this);
+        add(finishButton);
+        finishButton.setBounds(WIDTH/2-40, 200, 80, 30);
+        finishButton.setVisible(false);
 
         startButton = new Button("Start Game");
         startButton.addActionListener(this);
         add(startButton);
         startButton.setBounds(WIDTH/2-40, 320, 80, 30);
-        
+
         instructionButton = new Button("Instructions");
         instructionButton.addActionListener(this);
         add(instructionButton);
@@ -67,7 +74,10 @@ public class GUI extends Applet implements ActionListener, MouseListener
                 {
                     if (board != null && board.getState() == BoardState.WON)
                     {
-                        nextLevelButton.setVisible(true);
+                        if (generator.getCurrentLevel() == 10)
+                            finishButton.setVisible(true);
+                        else
+                            nextLevelButton.setVisible(true);
                         retryButton.setEnabled(false);
                     }
                     repaint();
@@ -87,6 +97,15 @@ public class GUI extends Applet implements ActionListener, MouseListener
             board = generator.nextLevel();
             nextLevelButton.setVisible(false);
             retryButton.setEnabled(true);
+        }
+        if (ae.getSource() == finishButton)
+        {
+            generator.resetGame();
+            board = null;
+            retryButton.setVisible(false);
+            startButton.setVisible(true);
+            instructionButton.setVisible(true);
+            finishButton.setVisible(false);
         }
         if (ae.getSource() == startButton)
         {
