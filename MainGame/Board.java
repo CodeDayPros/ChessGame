@@ -125,6 +125,13 @@ public class Board
 
     private boolean checkLoss()
     {
+        for (Point location : finalLocations)
+        {
+            int x = (int)location.getX();
+            int y = (int)location.getY();
+            if (getPiece(x,y) == null && getValue(x,y) == 0)
+                return true;
+        }
         for (Piece piece : pieces)
         {
             if (getPossibleLocations(piece).size() > 0)
