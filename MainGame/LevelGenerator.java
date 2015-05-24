@@ -145,6 +145,18 @@ public class LevelGenerator
             positions[4][3]=1;
             positions[3][4]=1;
         }
+        if(currentLevel==7)
+        {
+            pieces.add(new Knight(4,0));
+            finalLocations.add(new Point(4,3));
+            for(int row=0; row<positions.length; row++)
+            {
+                for(int col=0; col<positions[row].length; col++)
+                {
+                    positions[row][col]=1;
+                }
+            }
+        }
         board = new Board(pieces, positions, finalLocations);
         if (pieces.size() == 1)
             board.selectPiece(pieces.get(0));
