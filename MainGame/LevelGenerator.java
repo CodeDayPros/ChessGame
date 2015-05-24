@@ -9,7 +9,7 @@ public class LevelGenerator
 
     public LevelGenerator()
     {
-        currentLevel = 4;
+        currentLevel = 0;
     }
 
     public Board nextLevel()
