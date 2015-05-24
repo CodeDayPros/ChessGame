@@ -9,7 +9,7 @@ public class LevelGenerator
 
     public LevelGenerator()
     {
-        currentLevel = 2;
+        currentLevel = 0;
     }
 
     public Board nextLevel()
@@ -77,6 +77,57 @@ public class LevelGenerator
             positions[0][6]=1;
             positions[3][7]=1;
             
+        }
+        if(currentLevel==4)
+        {
+            pieces.add(new Rook(1,1));
+            pieces.add(new Knight(5,2));
+            pieces.add(new Knight(5,3));
+            pieces.add(new Bishop(5,7));
+            finalLocations.add(new Point(3,3));
+            finalLocations.add(new Point(6,1));
+            finalLocations.add(new Point(1,5));
+            finalLocations.add(new Point(3,5));
+            positions[3][5]=1;
+            positions[1][5]=1;
+            positions[6][1]=1;
+            positions[3][3]=1;
+            positions[3][1]=1;
+            positions[4][1]=1;
+            positions[1][2]=1;
+            positions[2][3]=1;
+            positions[3][4]=1;
+            positions[4][4]=1;
+            positions[4][5]=1;
+            positions[6][5]=1;
+        }
+        if(currentLevel==5)
+        {
+            pieces.add(new King(3,3));
+            pieces.add(new Rook(2,7));
+            pieces.add(new Knight(2,1));
+            pieces.add(new Knight(6,1));
+            pieces.add(new Bishop(0,5));
+            finalLocations.add(new Point(3,3));
+            finalLocations.add(new Point(3,2));
+            finalLocations.add(new Point(2,3));
+            finalLocations.add(new Point(4,3));
+            finalLocations.add(new Point(3,4));
+            positions[3][1]=1;
+            positions[4][2]=3;
+            positions[5][2]=1;
+            positions[4][4]=1;
+            positions[5][4]=1;
+            positions[2][4]=1;
+            positions[3][4]=1;
+            positions[1][6]=1;
+            positions[4][6]=1;
+            positions[5][7]=1;
+            positions[3][3]=1;
+            positions[3][2]=1;
+            positions[2][3]=1;
+            positions[4][3]=1;
+            positions[3][4]=1;
         }
         
         board = new Board(pieces, positions, finalLocations);

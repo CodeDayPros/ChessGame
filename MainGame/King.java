@@ -37,6 +37,10 @@ public class King extends Piece
         points.add(new Point(getX()+1, getY()-1));
         points.add(new Point(getX()-1, getY()+1));
         points.add(new Point(getX()-1, getY()-1));
+        points.add(new Point(getX(), getY()-1));
+        points.add(new Point(getX(), getY()+1));
+        points.add(new Point(getX()-1, getY()));
+        points.add(new Point(getX()+1, getY()));
         return points;
     }
 }
