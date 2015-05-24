@@ -117,6 +117,24 @@ public class GUI extends Applet implements ActionListener, MouseListener
         if (ae.getSource() == instructionButton)
         {
             //show instructions
+            JFrame frame= new JFrame("Instructions");
+            frame.setPreferredSize(new Dimension(550,250));
+            frame.setLayout(null);
+            JLabel label = new JLabel("<html>The goal of this game is to move the chess pieces into the dashed squares by " + 
+            "first going through the highlighted spaces. " + 
+            "Red squares need to be visited once while yellow squares need to be visited twice. " +
+            "Click on a piece to select it and click on an outlined square to move the piece to that square." +
+            "<br><br>The pieces are as follows: Knights, Rooks, Bishops, Queens and Kings." +
+            "<br>Knights move in an L while jumping over other pieces. For example, they can move up 1 and left 2 or down 2 and right 1." +
+            "<br>Rooks move in straight lines." + 
+            "<br>Bishops move in diagonals." + 
+            "<br>Queens can move in straight lines or diagonals." +
+            "<br>Kings can move to any directly adjacent space." +
+            "</html>");
+            label.setBounds(0,0,500,200);
+            frame.add(label);
+            frame.pack();
+            frame.setVisible(true);
         }
     }
 

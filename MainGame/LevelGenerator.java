@@ -17,17 +17,17 @@ public class LevelGenerator
         currentLevel++;
         return generateLevel();
     }
-    
+
     public Board restartLevel()
     {
         return generateLevel();
     }
-    
+
     public int getCurrentLevel()
     {
         return currentLevel;
     }
-    
+
     public void resetGame()
     {
         board = null;
@@ -39,8 +39,7 @@ public class LevelGenerator
         List<Piece> pieces = new ArrayList<Piece>();
         List<Point> finalLocations = new ArrayList<Point>();
         int[][] positions = new int[8][8];
-        
-        
+
         if (currentLevel == 1)
         {
             pieces.add(new Knight(2, 0));
@@ -98,7 +97,7 @@ public class LevelGenerator
             positions[5][5]=1;
             positions[0][6]=1;
             positions[3][7]=1;
-            
+
         }
         if(currentLevel==5)
         {
@@ -175,10 +174,10 @@ public class LevelGenerator
             finalLocations.add(new Point(2,3));
             finalLocations.add(new Point(4,3));
             finalLocations.add(new Point(3,4));
-           // positions[3][1]=1;
+            // positions[3][1]=1;
             positions[4][2]=2;
             positions[5][2]=2;
-           // positions[4][4]=1;
+            // positions[4][4]=1;
             positions[5][4]=2;
             positions[2][4]=1;
             positions[3][4]=1;
@@ -192,6 +191,33 @@ public class LevelGenerator
             positions[3][4]=1;
         }
         if(currentLevel==9)
+        {
+            pieces.add(new Rook(2,1));
+            pieces.add(new Knight(5,3));
+            pieces.add(new Bishop(6,1));
+            pieces.add(new King(3,4));
+            pieces.add(new Queen(6,7));
+            finalLocations.add(new Point(5,0));
+            finalLocations.add(new Point(2,3));
+            finalLocations.add(new Point(6,3));
+            finalLocations.add(new Point(1,6));
+            finalLocations.add(new Point(6,5));
+            positions[5][0]=1;
+            positions[2][3]=1;
+            positions[6][3]=1;
+            positions[1][6]=1;
+            positions[6][5]=1;
+            positions[5][1]=2;
+            positions[5][2]=1;
+            positions[7][2]=1;
+            positions[4][3]=1;
+            positions[4][5]=2;
+            positions[5][6]=1;
+            positions[5][7]=1;
+            positions[2][7]=1;
+
+        }
+        if(currentLevel==10)
         {
             pieces.add(new Knight(4,0));
             finalLocations.add(new Point(4,3));
