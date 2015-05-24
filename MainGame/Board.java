@@ -161,10 +161,8 @@ public class Board
                     g.setColor(Color.GRAY);
                 else if (valueAtPosition == 1)
                     g.setColor(Color.RED);
-                else if (valueAtPosition == 2)
-                    g.setColor(Color.YELLOW);
                 else
-                    g.setColor(Color.MAGENTA);
+                    g.setColor(Color.YELLOW);
                 g.fillRect(x*50, y*50, 50, 50);
 
                 g.setColor(Color.BLACK);
