@@ -26,12 +26,12 @@ public class GUI extends Applet implements ActionListener, MouseListener
         this.setLayout(null);
         this.resize(WIDTH,HEIGHT);
         addMouseListener(this);
-        
+
         retryButton = new Button("Retry Level!");
         retryButton.addActionListener(this);
         add(retryButton);
         retryButton.setBounds(WIDTH-80, 405, 75, 25);
-        
+
         int delay = 20; //milliseconds
         ActionListener taskPerformer = new ActionListener() 
             {
