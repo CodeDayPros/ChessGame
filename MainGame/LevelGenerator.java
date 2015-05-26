@@ -225,7 +225,8 @@ public class LevelGenerator
             {
                 for(int col=0; col<positions[row].length; col++)
                 {
-                    positions[row][col]=1;
+                    if(!(row==4 && col==0))
+                        positions[row][col]=1;
                 }
             }
         }
