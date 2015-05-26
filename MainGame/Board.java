@@ -183,6 +183,18 @@ public class Board
             }
         }
 
+        for (Point location : possibleMovementLocations)
+        {
+            g.setColor(Color.GREEN);
+            g.drawRect((int)location.getX()*50, (int)location.getY()*50, 50, 50);
+        }
+
+        if (selectedPiece != null)
+        {
+            g.setColor(Color.YELLOW);
+            g.drawRect(selectedPiece.getX()*50, selectedPiece.getY()*50, 50, 50);
+        }
+
         for (Piece piece : pieces)
         {
             if (animationTimer < 0 || piece != selectedPiece)
@@ -196,12 +208,6 @@ public class Board
                 (int)((newLoc.getY() + (previousLoc.getY() - newLoc.getY())*(animationTimer/10.))*50+0.5),
                 50, 50, null);
             animationTimer--;
-        }
-
-        for (Point location : possibleMovementLocations)
-        {
-            g.setColor(Color.GREEN);
-            g.drawRect((int)location.getX()*50, (int)location.getY()*50, 50, 50);
         }
     }
 
