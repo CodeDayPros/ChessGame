@@ -120,6 +120,7 @@ public class GUI extends Applet implements ActionListener, MouseListener
             JFrame frame= new JFrame("Instructions");
             frame.setPreferredSize(new Dimension(550,250));
             frame.setLayout(null);
+            
             JLabel label = new JLabel("<html>The goal of this game is to move the chess pieces into the dashed squares by " + 
             "first going through the highlighted spaces. " + 
             "Red squares need to be visited once while purple squares need to be visited twice. " +
@@ -132,6 +133,7 @@ public class GUI extends Applet implements ActionListener, MouseListener
             "<br>Kings can move to any directly adjacent space." +
             "</html>");
             label.setBounds(0,0,500,200);
+            
             frame.add(label);
             frame.pack();
             frame.setVisible(true);

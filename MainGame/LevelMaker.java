@@ -30,16 +30,22 @@ public class LevelMaker extends Applet implements ActionListener, MouseListener
     List<Piece> pieces;
     List<Point> regPoints;
     List<Point> finalPoints;
+    
+    JTextArea textArea;
+    Button generateCode;
     int xPos;
     int yPos;
     public void init()
     { 
         image = createImage(WIDTH,HEIGHT);
+        this.setLayout(null);
         graphics=image.getGraphics();
         drawPiece=false;
         regPoints= new ArrayList<Point>();
         pieces = new ArrayList<Piece>();
         finalPoints = new ArrayList<Point>();
+        textArea = new JTextArea("CODE:");
+        
         this.resize(WIDTH,HEIGHT);
         popup = new JPopupMenu();
         king = new JMenuItem("Add King");
@@ -63,6 +69,11 @@ public class LevelMaker extends Applet implements ActionListener, MouseListener
         regPos = new JMenuItem("Add Regular Position");
         regPos.addActionListener(this);
         popup.add(regPos);
+        
+        generateCode = new Button("Generate Code");
+        generateCode.addActionListener(this);
+        add(generateCode);
+        generateCode.setBounds(WIDTH/2-60, 405, 130, 30);
 
         addMouseListener(this);
     }
@@ -138,6 +149,30 @@ public class LevelMaker extends Applet implements ActionListener, MouseListener
             yPos-=roundingY;
             regPoints.add(new Point(xPos,yPos));
             repaint();
+        }
+        if (ae.getSource() == generateCode)
+        {
+            JFrame frame= new JFrame("Instructions");
+            frame.setPreferredSize(new Dimension(550,250));
+            frame.setLayout(null);
+            for(Piece p: pieces)
+            {
+                textArea.append(("\n" + "pieces.add(new " + p.getName() + "(" + (int) p.getX()/50 + "," + (int)p.getY()/50 + "));"));
+            }
+            for(Point p: finalPoints)
+            {
+                textArea.append(("\n" + "finalLocations.add(new Point(" + (int)p.getX()/50 + "," + (int)p.getY()/50 + "));"));
+            }
+            for(Point p: regPoints)
+            {
+                textArea.append(("\n" + "positions[" + (int)p.getX()/50 + "][" + (int)p.getY()/50 + "]=1;"));
+            }
+            
+            textArea.setBounds(0,0,500,500);
+            frame.add(textArea);
+            
+            frame.pack();
+            frame.setVisible(true);
         }
     }
 
