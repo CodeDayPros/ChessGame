@@ -22,5 +22,6 @@ public class Main
         frame.setVisible(true);
         applet.init();
         applet.start();
+        
     }
 }
