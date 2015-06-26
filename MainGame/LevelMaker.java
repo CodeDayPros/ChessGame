@@ -23,12 +23,14 @@ public class LevelMaker extends Applet implements ActionListener, MouseListener
     JMenuItem knight;
     JMenuItem rook;
     JMenuItem finalPos;
-    JMenuItem regPos;
+    JMenuItem regPos1;
+    JMenuItem regPos2;
     Graphics graphics;
     Image image;
     Boolean drawPiece;
     List<Piece> pieces;
-    List<Point> regPoints;
+    List<Point> regPoints1;
+    List<Point> regPoints2;
     List<Point> finalPoints;
     
     JTextArea textArea;
@@ -41,9 +43,10 @@ public class LevelMaker extends Applet implements ActionListener, MouseListener
         this.setLayout(null);
         graphics=image.getGraphics();
         drawPiece=false;
-        regPoints= new ArrayList<Point>();
+        regPoints1= new ArrayList<Point>();
         pieces = new ArrayList<Piece>();
         finalPoints = new ArrayList<Point>();
+        regPoints2= new ArrayList<Point>();
         textArea = new JTextArea("CODE:");
         
         this.resize(WIDTH,HEIGHT);
@@ -66,9 +69,12 @@ public class LevelMaker extends Applet implements ActionListener, MouseListener
         finalPos = new JMenuItem("Add Final Position");
         finalPos.addActionListener(this);
         popup.add(finalPos);
-        regPos = new JMenuItem("Add Regular Position");
-        regPos.addActionListener(this);
-        popup.add(regPos);
+        regPos1 = new JMenuItem("Add Red Space");
+        regPos1.addActionListener(this);
+        popup.add(regPos1);
+        regPos2 = new JMenuItem("Add Magenta Space");
+        regPos2.addActionListener(this);
+        popup.add(regPos2);
         
         generateCode = new Button("Generate Code");
         generateCode.addActionListener(this);
@@ -136,18 +142,28 @@ public class LevelMaker extends Applet implements ActionListener, MouseListener
             int roundingY = yPos%50;
             xPos-=roundingX;
             yPos-=roundingY;
-            regPoints.add(new Point(xPos,yPos));
+            regPoints1.add(new Point(xPos,yPos));
             finalPoints.add(new Point(xPos,yPos));
             repaint();
         }
-        if (ae.getSource() == regPos)
+        if (ae.getSource() == regPos1)
         {
             
             int roundingX = xPos%50;
             int roundingY = yPos%50;
             xPos-=roundingX;
             yPos-=roundingY;
-            regPoints.add(new Point(xPos,yPos));
+            regPoints1.add(new Point(xPos,yPos));
+            repaint();
+        }
+        if (ae.getSource() == regPos2)
+        {
+            
+            int roundingX = xPos%50;
+            int roundingY = yPos%50;
+            xPos-=roundingX;
+            yPos-=roundingY;
+            regPoints2.add(new Point(xPos,yPos));
             repaint();
         }
         if (ae.getSource() == generateCode)
@@ -163,9 +179,13 @@ public class LevelMaker extends Applet implements ActionListener, MouseListener
             {
                 textArea.append(("\n" + "finalLocations.add(new Point(" + (int)p.getX()/50 + "," + (int)p.getY()/50 + "));"));
             }
-            for(Point p: regPoints)
+            for(Point p: regPoints1)
             {
                 textArea.append(("\n" + "positions[" + (int)p.getX()/50 + "][" + (int)p.getY()/50 + "]=1;"));
+            }
+             for(Point p: regPoints2)
+            {
+                textArea.append(("\n" + "positions[" + (int)p.getX()/50 + "][" + (int)p.getY()/50 + "]=2;"));
             }
             
             textArea.setBounds(0,0,500,500);
@@ -196,9 +216,14 @@ public class LevelMaker extends Applet implements ActionListener, MouseListener
 
             }
         }
-        for(Point p: regPoints)
+        for(Point p: regPoints1)
         {
             graphics.setColor(Color.RED);
+            graphics.fillRect((int)(p.getX()), (int)(p.getY()),50,50);
+        }
+        for(Point p: regPoints2)
+        {
+            graphics.setColor(Color.MAGENTA);
             graphics.fillRect((int)(p.getX()), (int)(p.getY()),50,50);
         }
         for(Point p: finalPoints)
