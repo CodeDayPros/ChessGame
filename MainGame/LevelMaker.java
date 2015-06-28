@@ -27,12 +27,13 @@ public class LevelMaker extends Applet implements ActionListener, MouseListener
     JMenuItem regPos2;
     Graphics graphics;
     Image image;
-    Boolean drawPiece;
+
+    Boolean[][] pieceThere;
     List<Piece> pieces;
     List<Point> regPoints1;
     List<Point> regPoints2;
     List<Point> finalPoints;
-    
+
     JTextArea textArea;
     Button generateCode;
     int xPos;
@@ -42,13 +43,13 @@ public class LevelMaker extends Applet implements ActionListener, MouseListener
         image = createImage(WIDTH,HEIGHT);
         this.setLayout(null);
         graphics=image.getGraphics();
-        drawPiece=false;
+
         regPoints1= new ArrayList<Point>();
         pieces = new ArrayList<Piece>();
         finalPoints = new ArrayList<Point>();
         regPoints2= new ArrayList<Point>();
         textArea = new JTextArea("CODE:");
-        
+
         this.resize(WIDTH,HEIGHT);
         popup = new JPopupMenu();
         king = new JMenuItem("Add King");
@@ -75,11 +76,19 @@ public class LevelMaker extends Applet implements ActionListener, MouseListener
         regPos2 = new JMenuItem("Add Magenta Space");
         regPos2.addActionListener(this);
         popup.add(regPos2);
-        
+
         generateCode = new Button("Generate Code");
         generateCode.addActionListener(this);
         add(generateCode);
         generateCode.setBounds(WIDTH/2-60, 405, 130, 30);
+        pieceThere = new Boolean[8][8];
+        for(int row=0; row<8; row++)
+        {
+            for(int col=0; col<8; col++)
+            {
+                pieceThere[row][col]=false;
+            }
+        }
 
         addMouseListener(this);
     }
@@ -88,52 +97,62 @@ public class LevelMaker extends Applet implements ActionListener, MouseListener
     {
         if (ae.getSource() == king)
         {
-            drawPiece=true;
+
             int roundingX = xPos%50;
             int roundingY = yPos%50;
             xPos-=roundingX;
             yPos-=roundingY;
-            pieces.add(new King(xPos,yPos));
+            if(pieceThere[xPos/50][yPos/50]==false)
+                pieces.add(new King(xPos,yPos));
+            pieceThere[xPos/50][yPos/50]=true;
             repaint();        
         }
         if (ae.getSource() == queen)
         {
-            drawPiece=true;
+
             int roundingX = xPos%50;
             int roundingY = yPos%50;
             xPos-=roundingX;
             yPos-=roundingY;
-            pieces.add(new Queen(xPos,yPos));
+            if(pieceThere[xPos/50][yPos/50]==false)
+                pieces.add(new Queen(xPos,yPos));
+            pieceThere[xPos/50][yPos/50]=true;
             repaint();   
         }
         if (ae.getSource() == knight)
         {
-            drawPiece=true;
+
             int roundingX = xPos%50;
             int roundingY = yPos%50;
             xPos-=roundingX;
             yPos-=roundingY;
-            pieces.add(new Knight(xPos,yPos));
+            if(pieceThere[xPos/50][yPos/50]==false)
+                pieces.add(new Knight(xPos,yPos));
+            pieceThere[xPos/50][yPos/50]=true;
+            
             repaint();
         }
         if (ae.getSource() == bishop)
         {
-            drawPiece=true;
+
             int roundingX = xPos%50;
             int roundingY = yPos%50;
             xPos-=roundingX;
             yPos-=roundingY;
-            pieces.add(new Bishop(xPos,yPos));
+            if(pieceThere[xPos/50][yPos/50]==false)
+                pieces.add(new Bishop(xPos,yPos));
+            pieceThere[xPos/50][yPos/50]=true;
             repaint();
         }
         if (ae.getSource() == rook)
         {
-            drawPiece=true;
             int roundingX = xPos%50;
             int roundingY = yPos%50;
             xPos-=roundingX;
-            yPos-=roundingY;
-            pieces.add(new Rook(xPos,yPos));
+            yPos-=roundingY; 
+            if(pieceThere[xPos/50][yPos/50]==false)
+                pieces.add(new Rook(xPos,yPos));
+            pieceThere[xPos/50][yPos/50]=true;
             repaint();
         }
         if (ae.getSource() == finalPos)
@@ -148,7 +167,7 @@ public class LevelMaker extends Applet implements ActionListener, MouseListener
         }
         if (ae.getSource() == regPos1)
         {
-            
+
             int roundingX = xPos%50;
             int roundingY = yPos%50;
             xPos-=roundingX;
@@ -158,7 +177,7 @@ public class LevelMaker extends Applet implements ActionListener, MouseListener
         }
         if (ae.getSource() == regPos2)
         {
-            
+
             int roundingX = xPos%50;
             int roundingY = yPos%50;
             xPos-=roundingX;
@@ -168,9 +187,10 @@ public class LevelMaker extends Applet implements ActionListener, MouseListener
         }
         if (ae.getSource() == generateCode)
         {
-            JFrame frame= new JFrame("Instructions");
-            frame.setPreferredSize(new Dimension(550,250));
+            JFrame frame= new JFrame("Code");
+            frame.setPreferredSize(new Dimension(500,500));
             frame.setLayout(null);
+            textArea.setText("Code: ");
             for(Piece p: pieces)
             {
                 textArea.append(("\n" + "pieces.add(new " + p.getName() + "(" + (int) p.getX()/50 + "," + (int)p.getY()/50 + "));"));
@@ -183,14 +203,14 @@ public class LevelMaker extends Applet implements ActionListener, MouseListener
             {
                 textArea.append(("\n" + "positions[" + (int)p.getX()/50 + "][" + (int)p.getY()/50 + "]=1;"));
             }
-             for(Point p: regPoints2)
+            for(Point p: regPoints2)
             {
                 textArea.append(("\n" + "positions[" + (int)p.getX()/50 + "][" + (int)p.getY()/50 + "]=2;"));
             }
-            
-            textArea.setBounds(0,0,500,500);
+
+            textArea.setBounds(0,0,500,1000);
             frame.add(textArea);
-            
+
             frame.pack();
             frame.setVisible(true);
         }
@@ -228,7 +248,7 @@ public class LevelMaker extends Applet implements ActionListener, MouseListener
         }
         for(Point p: finalPoints)
         {
-           for (int pos = 0; pos <= 50; pos += 5)
+            for (int pos = 0; pos <= 50; pos += 5)
             {
                 int x = (int)p.getX();
                 int y = (int)p.getY();
@@ -238,15 +258,11 @@ public class LevelMaker extends Applet implements ActionListener, MouseListener
             }
         }
 
-        if(drawPiece)
-        {
-            for(Piece p: pieces)
-                graphics.drawImage(p.getImage(),p.getX(),p.getY(),this);
-        }
-
-        
+        for(Piece p: pieces)
+            graphics.drawImage(p.getImage(),p.getX(),p.getY(),this);
         g.drawImage(image, 0, 0, this);
     }
+
 
     public void mousePressed(MouseEvent e) {
     }
