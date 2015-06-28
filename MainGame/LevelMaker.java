@@ -12,35 +12,39 @@ import java.util.List;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Color;
+import java.awt.datatransfer.*;
+import java.awt.Toolkit;
 public class LevelMaker extends Applet implements ActionListener, MouseListener
 {
-    JPopupMenu popup;
-    final int WIDTH = 400;
-    final int HEIGHT = 435;
-    JMenuItem king;
-    JMenuItem queen;
-    JMenuItem bishop;
-    JMenuItem knight;
-    JMenuItem rook;
-    JMenuItem finalPos;
-    JMenuItem regPos1;
-    JMenuItem regPos2;
-    JMenuItem remove;
-    Graphics graphics;
-    Image image;
+    private JPopupMenu popup;
+    private final int WIDTH = 400;
+    private final int HEIGHT = 435;
+    private JMenuItem king;
+    private JMenuItem queen;
+    private JMenuItem bishop;
+    private JMenuItem knight;
+    private JMenuItem rook;
+    private JMenuItem finalPos;
+    private JMenuItem regPos1;
+    private JMenuItem regPos2;
+    private JMenuItem remove;
+    private Graphics graphics;
+    private Image image;
+    
 
-    Boolean[][] pieceThere;
-    Boolean[][] positionThere;
-    List<Piece> pieces;
-    List<Point> regPoints1;
-    List<Point> regPoints2;
-    List<Point> finalPoints;
+    private Boolean[][] pieceThere;
+    private Boolean[][] positionThere;
+    private List<Piece> pieces;
+    private List<Point> regPoints1;
+    private List<Point> regPoints2;
+    private List<Point> finalPoints;
 
-    JTextArea textArea;
-    Button generateCode;
-    Button reset;
-    int xPos;
-    int yPos;
+    private JTextArea textArea;
+    private Button generateCode;
+    private Button reset;
+    private int xPos;
+    private int yPos;
+    private String text;
     public void init()
     { 
         image = createImage(WIDTH,HEIGHT);
@@ -91,7 +95,7 @@ public class LevelMaker extends Applet implements ActionListener, MouseListener
         reset.addActionListener(this);
         add(reset);
         reset.setBounds(50, 405, 130, 30);
-
+        
         pieceThere = new Boolean[8][8];
         positionThere = new Boolean[8][8];
         for(int row=0; row<8; row++)
@@ -279,12 +283,14 @@ public class LevelMaker extends Applet implements ActionListener, MouseListener
             {
                 textArea.append(("\n" + "positions[" + (int)p.getX()/50 + "][" + (int)p.getY()/50 + "]=2;"));
             }
-
+            
             textArea.setBounds(0,0,500,1000);
             frame.add(textArea);
 
             frame.pack();
             frame.setVisible(true);
+            text = textArea.getText();
+            copyStringToClipboard(text);
         }
         if(ae.getSource() == reset)
         {
@@ -349,6 +355,12 @@ public class LevelMaker extends Applet implements ActionListener, MouseListener
         for(Piece p: pieces)
             graphics.drawImage(p.getImage(),p.getX(),p.getY(),this);
         g.drawImage(image, 0, 0, this);
+    }
+
+    public static void copyStringToClipboard(String str) {
+        StringSelection stringSelection = new StringSelection(str);
+        Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+        clipboard.setContents(stringSelection, null);
     }
 
     public void mousePressed(MouseEvent e) {
