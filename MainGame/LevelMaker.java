@@ -25,10 +25,12 @@ public class LevelMaker extends Applet implements ActionListener, MouseListener
     JMenuItem finalPos;
     JMenuItem regPos1;
     JMenuItem regPos2;
+    JMenuItem remove;
     Graphics graphics;
     Image image;
 
     Boolean[][] pieceThere;
+    Boolean[][] positionThere;
     List<Piece> pieces;
     List<Point> regPoints1;
     List<Point> regPoints2;
@@ -76,17 +78,22 @@ public class LevelMaker extends Applet implements ActionListener, MouseListener
         regPos2 = new JMenuItem("Add Magenta Space");
         regPos2.addActionListener(this);
         popup.add(regPos2);
+        remove = new JMenuItem("Remove");
+        remove.addActionListener(this);
+        popup.add(remove);
 
         generateCode = new Button("Generate Code");
         generateCode.addActionListener(this);
         add(generateCode);
         generateCode.setBounds(WIDTH/2-60, 405, 130, 30);
         pieceThere = new Boolean[8][8];
+        positionThere = new Boolean[8][8];
         for(int row=0; row<8; row++)
         {
             for(int col=0; col<8; col++)
             {
                 pieceThere[row][col]=false;
+                positionThere[row][col]=false;
             }
         }
 
@@ -156,8 +163,12 @@ public class LevelMaker extends Applet implements ActionListener, MouseListener
             int roundingY = yPos%50;
             xPos-=roundingX;
             yPos-=roundingY;
-            regPoints1.add(new Point(xPos,yPos));
-            finalPoints.add(new Point(xPos,yPos));
+            if(positionThere[xPos/50][yPos/50]==false)
+            {
+                regPoints1.add(new Point(xPos,yPos));
+                finalPoints.add(new Point(xPos,yPos));
+            }
+            positionThere[xPos/50][yPos/50]=true;
             repaint();
         }
         if (ae.getSource() == regPos1)
@@ -166,7 +177,9 @@ public class LevelMaker extends Applet implements ActionListener, MouseListener
             int roundingY = yPos%50;
             xPos-=roundingX;
             yPos-=roundingY;
-            regPoints1.add(new Point(xPos,yPos));
+            if(positionThere[xPos/50][yPos/50]==false)
+                regPoints1.add(new Point(xPos,yPos));
+            positionThere[xPos/50][yPos/50]=true;
             repaint();
         }
         if (ae.getSource() == regPos2)
@@ -175,7 +188,63 @@ public class LevelMaker extends Applet implements ActionListener, MouseListener
             int roundingY = yPos%50;
             xPos-=roundingX;
             yPos-=roundingY;
-            regPoints2.add(new Point(xPos,yPos));
+            if(positionThere[xPos/50][yPos/50]==false)
+                regPoints2.add(new Point(xPos,yPos));
+            positionThere[xPos/50][yPos/50]=true;
+            repaint();
+        }
+        if(ae.getSource() == remove)
+        {
+            int roundingX = xPos%50;
+            int roundingY = yPos%50;
+            xPos-=roundingX;
+            yPos-=roundingY;
+            if(positionThere[xPos/50][yPos/50]==true)
+            {
+                for(int i=0; i<regPoints1.size(); i++)
+                {
+                    int x= (int)regPoints1.get(i).getX();
+                    int y= (int)regPoints1.get(i).getY();
+                    if(xPos==x && yPos==y)
+                    {
+                        regPoints1.remove(i);
+                        break;
+                    }
+                }
+                for(int i=0; i<regPoints2.size(); i++)
+                {
+                    int x= (int)regPoints2.get(i).getX();
+                    int y= (int)regPoints2.get(i).getY();
+                    if(xPos==x && yPos==y)
+                    {
+                        regPoints2.remove(i);
+                        break;
+                    }
+                }
+                for(int i=0; i<finalPoints.size(); i++)
+                {
+                    int x= (int)finalPoints.get(i).getX();
+                    int y= (int)finalPoints.get(i).getY();
+                    if(xPos==x && yPos==y)
+                    {
+                        finalPoints.remove(i);
+                        break;
+                    }
+                }
+            }
+            if(pieceThere[xPos/50][yPos/50]==true)
+            {
+               for(int i=0; i<pieces.size(); i++)
+                {
+                    int x= (int)pieces.get(i).getX();
+                    int y= (int)pieces.get(i).getY();
+                    if(xPos==x && yPos==y)
+                    {
+                        pieces.remove(i);
+                        break;
+                    }
+                }
+            }
             repaint();
         }
         if (ae.getSource() == generateCode)
@@ -276,6 +345,10 @@ public class LevelMaker extends Applet implements ActionListener, MouseListener
         rook.setVisible(true);
         knight.setVisible(true);
         bishop.setVisible(true);
+        regPos1.setVisible(true);
+        regPos2.setVisible(true);
+        finalPos.setVisible(true);
+        remove.setVisible(false);
         if(pieceThere[(xPos-xPos%50)/50][(yPos-yPos%50)/50])
         {
             king.setVisible(false);
@@ -283,10 +356,18 @@ public class LevelMaker extends Applet implements ActionListener, MouseListener
             rook.setVisible(false);
             knight.setVisible(false);
             bishop.setVisible(false);
+            remove.setVisible(true);
         }
+        if(positionThere[(xPos-xPos%50)/50][(yPos-yPos%50)/50])
+        {
+            regPos1.setVisible(false);
+            regPos2.setVisible(false);
+            finalPos.setVisible(false);
+            remove.setVisible(true);
+        }
+        
         if(SwingUtilities.isRightMouseButton(e))
         {
-
             popup.show(e.getComponent(), e.getX(), e.getY());
         }
 
