@@ -97,7 +97,6 @@ public class LevelMaker extends Applet implements ActionListener, MouseListener
     {
         if (ae.getSource() == king)
         {
-
             int roundingX = xPos%50;
             int roundingY = yPos%50;
             xPos-=roundingX;
@@ -109,7 +108,6 @@ public class LevelMaker extends Applet implements ActionListener, MouseListener
         }
         if (ae.getSource() == queen)
         {
-
             int roundingX = xPos%50;
             int roundingY = yPos%50;
             xPos-=roundingX;
@@ -121,7 +119,6 @@ public class LevelMaker extends Applet implements ActionListener, MouseListener
         }
         if (ae.getSource() == knight)
         {
-
             int roundingX = xPos%50;
             int roundingY = yPos%50;
             xPos-=roundingX;
@@ -129,12 +126,10 @@ public class LevelMaker extends Applet implements ActionListener, MouseListener
             if(pieceThere[xPos/50][yPos/50]==false)
                 pieces.add(new Knight(xPos,yPos));
             pieceThere[xPos/50][yPos/50]=true;
-            
             repaint();
         }
         if (ae.getSource() == bishop)
         {
-
             int roundingX = xPos%50;
             int roundingY = yPos%50;
             xPos-=roundingX;
@@ -167,7 +162,6 @@ public class LevelMaker extends Applet implements ActionListener, MouseListener
         }
         if (ae.getSource() == regPos1)
         {
-
             int roundingX = xPos%50;
             int roundingY = yPos%50;
             xPos-=roundingX;
@@ -177,7 +171,6 @@ public class LevelMaker extends Applet implements ActionListener, MouseListener
         }
         if (ae.getSource() == regPos2)
         {
-
             int roundingX = xPos%50;
             int roundingY = yPos%50;
             xPos-=roundingX;
@@ -263,7 +256,6 @@ public class LevelMaker extends Applet implements ActionListener, MouseListener
         g.drawImage(image, 0, 0, this);
     }
 
-
     public void mousePressed(MouseEvent e) {
     }
 
@@ -279,7 +271,24 @@ public class LevelMaker extends Applet implements ActionListener, MouseListener
     public void mouseClicked(MouseEvent e) {
         xPos=e.getX();
         yPos=e.getY();
+        king.setVisible(true); 
+        queen.setVisible(true);
+        rook.setVisible(true);
+        knight.setVisible(true);
+        bishop.setVisible(true);
+        if(pieceThere[(xPos-xPos%50)/50][(yPos-yPos%50)/50])
+        {
+            king.setVisible(false);
+            queen.setVisible(false);
+            rook.setVisible(false);
+            knight.setVisible(false);
+            bishop.setVisible(false);
+        }
         if(SwingUtilities.isRightMouseButton(e))
+        {
+
             popup.show(e.getComponent(), e.getX(), e.getY());
+        }
+
     }
 }
