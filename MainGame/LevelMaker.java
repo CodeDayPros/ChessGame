@@ -91,7 +91,7 @@ public class LevelMaker extends Applet implements ActionListener, MouseListener
         reset.addActionListener(this);
         add(reset);
         reset.setBounds(50, 405, 130, 30);
-        
+
         pieceThere = new Boolean[8][8];
         positionThere = new Boolean[8][8];
         for(int row=0; row<8; row++)
@@ -214,6 +214,7 @@ public class LevelMaker extends Applet implements ActionListener, MouseListener
                     if(xPos==x && yPos==y)
                     {
                         regPoints1.remove(i);
+                        positionThere[xPos/50][yPos/50]=false;
                         break;
                     }
                 }
@@ -224,6 +225,7 @@ public class LevelMaker extends Applet implements ActionListener, MouseListener
                     if(xPos==x && yPos==y)
                     {
                         regPoints2.remove(i);
+                        positionThere[xPos/50][yPos/50]=false;
                         break;
                     }
                 }
@@ -234,19 +236,21 @@ public class LevelMaker extends Applet implements ActionListener, MouseListener
                     if(xPos==x && yPos==y)
                     {
                         finalPoints.remove(i);
+                        positionThere[xPos/50][yPos/50]=false;
                         break;
                     }
                 }
             }
             if(pieceThere[xPos/50][yPos/50]==true)
             {
-               for(int i=0; i<pieces.size(); i++)
+                for(int i=0; i<pieces.size(); i++)
                 {
                     int x= (int)pieces.get(i).getX();
                     int y= (int)pieces.get(i).getY();
                     if(xPos==x && yPos==y)
                     {
                         pieces.remove(i);
+                        pieceThere[xPos/50][yPos/50]=false;
                         break;
                     }
                 }
@@ -288,6 +292,14 @@ public class LevelMaker extends Applet implements ActionListener, MouseListener
             regPoints2.clear();
             finalPoints.clear();
             pieces.clear();
+            for(int row=0; row<8; row++)
+            {
+                for(int col=0; col<8; col++)
+                {
+                    pieceThere[row][col]=false;
+                    positionThere[row][col]=false;
+                }
+            }
             repaint();
         }
     }
@@ -379,7 +391,7 @@ public class LevelMaker extends Applet implements ActionListener, MouseListener
             finalPos.setVisible(false);
             remove.setVisible(true);
         }
-        
+
         if(SwingUtilities.isRightMouseButton(e))
         {
             popup.show(e.getComponent(), e.getX(), e.getY());
