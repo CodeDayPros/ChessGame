@@ -38,6 +38,7 @@ public class LevelMaker extends Applet implements ActionListener, MouseListener
 
     JTextArea textArea;
     Button generateCode;
+    Button reset;
     int xPos;
     int yPos;
     public void init()
@@ -85,7 +86,12 @@ public class LevelMaker extends Applet implements ActionListener, MouseListener
         generateCode = new Button("Generate Code");
         generateCode.addActionListener(this);
         add(generateCode);
-        generateCode.setBounds(WIDTH/2-60, 405, 130, 30);
+        generateCode.setBounds(WIDTH/2+20, 405, 130, 30);
+        reset=new Button("Reset");
+        reset.addActionListener(this);
+        add(reset);
+        reset.setBounds(50, 405, 130, 30);
+        
         pieceThere = new Boolean[8][8];
         positionThere = new Boolean[8][8];
         for(int row=0; row<8; row++)
@@ -275,6 +281,14 @@ public class LevelMaker extends Applet implements ActionListener, MouseListener
 
             frame.pack();
             frame.setVisible(true);
+        }
+        if(ae.getSource() == reset)
+        {
+            regPoints1.clear();
+            regPoints2.clear();
+            finalPoints.clear();
+            pieces.clear();
+            repaint();
         }
     }
 
