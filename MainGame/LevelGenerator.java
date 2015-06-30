@@ -185,6 +185,25 @@ public class LevelGenerator
         }
         if(currentLevel==11)
         {
+            pieces.add(new Rook(3,4));
+            pieces.add(new Bishop(6,6));
+            pieces.add(new Queen(2,0));
+            finalLocations.add(new Point(1,6));
+            finalLocations.add(new Point(1,1));
+            finalLocations.add(new Point(6,2));
+            positions[1][6]=1;
+            positions[7][5]=1;
+            positions[7][7]=1;
+            positions[3][3]=1;
+            positions[0][6]=1;
+            positions[1][7]=1;
+            positions[1][1]=1;
+            positions[6][2]=1;
+            positions[3][2]=1;
+            positions[1][2]=1;
+        }
+        if(currentLevel==12)
+        {
             pieces.add(new Knight(3,4));
             pieces.add(new Rook(1,5));
             pieces.add(new Bishop(5,2));
@@ -202,7 +221,7 @@ public class LevelGenerator
             positions[5][5]=1;
             positions[5][6]=1;
         }
-        if(currentLevel==12)
+        if(currentLevel==13)
         {
             pieces.add(new Bishop(4,4));
             pieces.add(new Knight(2,6));
@@ -228,7 +247,7 @@ public class LevelGenerator
             positions[7][7]=1;
 
         }
-        if(currentLevel==13)
+        if(currentLevel==14)
         {
             pieces.add(new Knight(5,2));
             pieces.add(new Bishop(1,1));
@@ -249,7 +268,7 @@ public class LevelGenerator
             positions[6][5]=1;
             positions[2][6]=1;
         }
-        if(currentLevel==14)
+        if(currentLevel==15)
         {
             pieces.add(new Rook(1,1));
             pieces.add(new Knight(5,2));
@@ -272,7 +291,7 @@ public class LevelGenerator
             positions[4][5]=1;
             positions[6][5]=1;
         }
-        if(currentLevel==15)
+        if(currentLevel==16)
         {
             pieces.add(new King(3,3));
             pieces.add(new Rook(2,7));
@@ -300,7 +319,7 @@ public class LevelGenerator
             positions[4][3]=1;
             positions[3][4]=1;
         }
-        if(currentLevel==16)
+        if(currentLevel==17)
         {
             pieces.add(new Rook(2,1));
             pieces.add(new Knight(5,3));
@@ -327,7 +346,7 @@ public class LevelGenerator
             positions[2][7]=1;
 
         }
-        if(currentLevel==17)
+        if(currentLevel==18)
         {
             pieces.add(new Knight(4,0));
             finalLocations.add(new Point(4,3));
