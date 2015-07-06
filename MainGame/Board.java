@@ -78,8 +78,8 @@ public class Board
                 boolean addLocation = true;
                 for (Piece otherPiece : pieces)
                 {
-                    MathVector u = new MathVector((int)(otherPiece.getX() - selectedPiece.getX()), (int)(otherPiece.getY() - selectedPiece.getY()));
-                    MathVector v = new MathVector((int)(x - selectedPiece.getX()), (int)(y - selectedPiece.getY()));
+                    MathVector u = new MathVector((int)(otherPiece.getX() - piece.getX()), (int)(otherPiece.getY() - piece.getY()));
+                    MathVector v = new MathVector((int)(x - piece.getX()), (int)(y - piece.getY()));
                     if (Math.abs(u.dotProduct(v)/(u.magnitude()*v.magnitude()) - 1) < 0.0001 && u.magnitude() < v.magnitude())
                     {
                         addLocation = false;
