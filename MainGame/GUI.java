@@ -177,7 +177,7 @@ public class GUI extends Applet implements ActionListener, MouseListener
     }
 
     public void mousePressed(MouseEvent e) {
-
+        board.clickOnBoard(e.getX(), e.getY());
     }
 
     public void mouseReleased(MouseEvent e) {
@@ -193,7 +193,7 @@ public class GUI extends Applet implements ActionListener, MouseListener
     }
 
     public void mouseClicked(MouseEvent e) {
-        board.clickOnBoard(e.getX(), e.getY());
+        
     }
 }
 
