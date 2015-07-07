@@ -168,63 +168,69 @@ public class GUI extends Applet implements ActionListener, MouseListener
 
     public void paint(Graphics g)
     {      
-        graphics.clearRect(0, 0, WIDTH, HEIGHT);
-        if(levelScreen)
+        if (graphics != null)
         {
-            boolean drawNumber=true;
-            int i=1;
-            graphics.setFont(new Font("Arial", Font.BOLD, 16));
-            for (int col = 0; col < 8; col++)
+            graphics.clearRect(0, 0, WIDTH, HEIGHT);
+            if(levelScreen)
             {
-                for (int row = 0; row < 8; row++)
+                boolean drawNumber=true;
+                int i=1;
+                graphics.setFont(new Font("Arial", Font.BOLD, 16));
+                for (int col = 0; col < 8; col++)
                 {
-                    graphics.setColor(Color.GRAY);
-                    graphics.fillRect(row*50,col*50,50,50);
-                    graphics.setColor(Color.BLACK);
-                    graphics.drawRect(row*50, col*50, 50, 50);
-                    if(i>generator.getNumLevels())
-                        drawNumber=false;
-                    if(drawNumber)
+                    for (int row = 0; row < 8; row++)
                     {
-                        graphics.setColor(Color.RED);
-                        graphics.fillOval(row*50,col*50,50,50);        
-                        String number = "" + i;
-                        graphics.setColor(Color.BLUE);
-                        if(i<10)
-                            graphics.drawString(number,row*50 + 21,col*50 + 30);
+                        if ((row + col) % 2 == 0)
+                            graphics.setColor(new Color(150, 150, 150));
                         else
-                            graphics.drawString(number,row*50 + 18,col*50 + 30);
-                        i++;
+                            graphics.setColor(new Color(120, 120, 120));
+                        graphics.fillRect(row*50,col*50,50,50);
+                        graphics.setColor(Color.BLACK);
+                        graphics.drawRect(row*50, col*50, 50, 50);
+                        if(i>generator.getNumLevels())
+                            drawNumber=false;
+                        if(drawNumber)
+                        {
+                            graphics.setColor(Color.RED);
+                            graphics.fillOval(row*50,col*50,50,50);        
+                            String number = "" + i;
+                            graphics.setColor(Color.BLUE);
+                            if(i<10)
+                                graphics.drawString(number,row*50 + 21,col*50 + 31);
+                            else
+                                graphics.drawString(number,row*50 + 16,col*50 + 31);
+                            i++;
+                        }
                     }
                 }
-            }
 
-        }
-        else if (generator.getCurrentLevel() > 0)
-        {
-            board.drawBoard(graphics);
-            graphics.setColor(Color.BLACK);
-            graphics.setFont(new Font("Arial", Font.BOLD, 16));
-            graphics.drawString("Level " + generator.getCurrentLevel(), 5, 425);
-            if (board.getState() == BoardState.WON)
-            {
-                graphics.setColor(new Color(255, 255, 255, 200));
-                graphics.fillRect(WIDTH/2-100, 165, 200, 70);
-                graphics.setColor(Color.BLACK);
-                graphics.setFont(new Font("Arial", Font.BOLD, 20));
-                graphics.drawString("You Win!", WIDTH/2-42, 190);
             }
-            else if (board.getState() == BoardState.LOST)
+            else if (generator.getCurrentLevel() > 0)
             {
-                graphics.setColor(new Color(255, 255, 255, 200));
-                graphics.fillRect(WIDTH/2-100, 185, 200, 30);
+                board.drawBoard(graphics);
                 graphics.setColor(Color.BLACK);
-                graphics.setFont(new Font("Arial", Font.BOLD, 20));
-                graphics.drawString("You Lost!", WIDTH/2-45, 207);
+                graphics.setFont(new Font("Arial", Font.BOLD, 16));
+                graphics.drawString("Level " + generator.getCurrentLevel(), 5, 425);
+                if (board.getState() == BoardState.WON)
+                {
+                    graphics.setColor(new Color(255, 255, 255, 200));
+                    graphics.fillRect(WIDTH/2-100, 165, 200, 70);
+                    graphics.setColor(Color.BLACK);
+                    graphics.setFont(new Font("Arial", Font.BOLD, 20));
+                    graphics.drawString("You Win!", WIDTH/2-42, 190);
+                }
+                else if (board.getState() == BoardState.LOST)
+                {
+                    graphics.setColor(new Color(255, 255, 255, 200));
+                    graphics.fillRect(WIDTH/2-100, 185, 200, 30);
+                    graphics.setColor(Color.BLACK);
+                    graphics.setFont(new Font("Arial", Font.BOLD, 20));
+                    graphics.drawString("You Lost!", WIDTH/2-45, 207);
+                }
             }
+            else
+                graphics.drawImage(titleImage, 50, 75, 300, 200, null);
         }
-        else
-            graphics.drawImage(titleImage, 50, 75, 300, 200, null);
         g.drawImage(image, 0, 0, this);
     }
 
@@ -244,16 +250,19 @@ public class GUI extends Applet implements ActionListener, MouseListener
                 {
 
                     if(xPos > col*50
-                        && xPos < col*50 + 50
-                        && yPos > row*50 
-                        && yPos < row*50+50)
+                    && xPos < col*50 + 50
+                    && yPos > row*50 
+                    && yPos < row*50+50)
                     {
-                        generator.setLevel(i);
-                        board = generator.nextLevel();
-                        retryButton.setVisible(true);
-                        selectLevel.setVisible(true);
-                        selectLevel.setBounds(WIDTH/2+30, 405, 80, 30);
-                        levelScreen = false;
+                        if (i < generator.getNumLevels())
+                        {
+                            generator.setLevel(i);
+                            board = generator.nextLevel();
+                            retryButton.setVisible(true);
+                            selectLevel.setVisible(true);
+                            selectLevel.setBounds(WIDTH/2+30, 405, 80, 30);
+                            levelScreen = false;
+                        }
                         break outerLoop;
                     }
                     i++;

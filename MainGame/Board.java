@@ -158,14 +158,17 @@ public class Board
             for (int y = 0; y < 8; y++)
             {
                 int valueAtPosition = getValue(x, y);
-                if (valueAtPosition == 0)
-                    g.setColor(Color.GRAY);
-                else if (valueAtPosition == 1)
-                    g.setColor(Color.RED);
+                if ((x + y) % 2 == 0)
+                    g.setColor(new Color(150, 150, 150));
                 else
-                    g.setColor(Color.MAGENTA);
+                    g.setColor(new Color(120, 120, 120));
                 g.fillRect(x*50, y*50, 50, 50);
-
+                
+                if (valueAtPosition == 1)
+                    g.setColor(new Color(255, 0, 0, 150));
+                else if (valueAtPosition == 2)
+                    g.setColor(new Color(255, 0, 255, 150));
+                g.fillRect(x*50, y*50, 50, 50);
                 g.setColor(Color.BLACK);
                 g.drawRect(x*50, y*50, 50, 50);
             }
