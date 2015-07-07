@@ -6,18 +6,27 @@ public class LevelGenerator
 {
     private int currentLevel;
     private Board board;
+    private int numOfLevels;
 
     public LevelGenerator()
     {
         currentLevel = 0;
+        numOfLevels = 18;
     }
-
     public Board nextLevel()
     {
         currentLevel++;
         return generateLevel();
     }
-
+    public void setLevel(int level)
+    {
+         currentLevel = level;
+    }
+    
+    public int getNumLevels()
+    {
+        return numOfLevels;
+    }
     public Board restartLevel()
     {
         return generateLevel();
