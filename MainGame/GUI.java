@@ -17,14 +17,18 @@ public class GUI extends Applet implements ActionListener, MouseListener
     Button finishButton;
     Button startButton;
     Button instructionButton;
+    Button selectLevel;
     final int WIDTH = 400;
     final int HEIGHT = 435;
     Board board;
     LevelGenerator generator;
+    Boolean levelScreen;
 
     public void init()
     { 
         image = createImage(WIDTH,HEIGHT);
+        levelScreen=false;
+
         try 
         {
             titleImage = ImageIO.read(new File("butter.png"));
@@ -35,6 +39,7 @@ public class GUI extends Applet implements ActionListener, MouseListener
         }
         graphics = image.getGraphics();
         generator = new LevelGenerator();
+
         this.setLayout(null);
         this.resize(WIDTH,HEIGHT);
         addMouseListener(this);
@@ -66,6 +71,11 @@ public class GUI extends Applet implements ActionListener, MouseListener
         instructionButton.addActionListener(this);
         add(instructionButton);
         instructionButton.setBounds(WIDTH/2-40, 355, 80, 30);
+
+        selectLevel= new Button("Select Level");
+        selectLevel.addActionListener(this);
+        add(selectLevel);
+        selectLevel.setBounds(WIDTH/2-40, 390, 80, 30);
 
         int delay = 20; //milliseconds
         ActionListener taskPerformer = new ActionListener() 
@@ -113,6 +123,8 @@ public class GUI extends Applet implements ActionListener, MouseListener
             startButton.setVisible(false);
             instructionButton.setVisible(false);
             retryButton.setVisible(true);
+            selectLevel.setVisible(true);
+            selectLevel.setBounds(WIDTH/2+30, 405, 80, 30);
         }
         if (ae.getSource() == instructionButton)
         {
@@ -120,23 +132,32 @@ public class GUI extends Applet implements ActionListener, MouseListener
             JFrame frame= new JFrame("Instructions");
             frame.setPreferredSize(new Dimension(550,250));
             frame.setLayout(null);
-            
+
             JLabel label = new JLabel("<html>The goal of this game is to move the chess pieces into the dashed squares by " + 
-            "first going through the highlighted spaces. " + 
-            "Red squares need to be visited once while purple squares need to be visited twice. " +
-            "Click on a piece to select it and click on an outlined square to move the piece to that square." +
-            "<br><br>The pieces are as follows: Knights, Rooks, Bishops, Queens and Kings." +
-            "<br>Knights move in an L while jumping over other pieces. For example, they can move up 1 and left 2 or down 2 and right 1." +
-            "<br>Rooks move in straight lines." + 
-            "<br>Bishops move in diagonals." + 
-            "<br>Queens can move in straight lines or diagonals." +
-            "<br>Kings can move to any directly adjacent space." +
-            "</html>");
+                    "first going through the highlighted spaces. " + 
+                    "Red squares need to be visited once while purple squares need to be visited twice. " +
+                    "Click on a piece to select it and click on an outlined square to move the piece to that square." +
+                    "<br><br>The pieces are as follows: Knights, Rooks, Bishops, Queens and Kings." +
+                    "<br>Knights move in an L while jumping over other pieces. For example, they can move up 1 and left 2 or down 2 and right 1." +
+                    "<br>Rooks move in straight lines." + 
+                    "<br>Bishops move in diagonals." + 
+                    "<br>Queens can move in straight lines or diagonals." +
+                    "<br>Kings can move to any directly adjacent space." +
+                    "</html>");
             label.setBounds(0,0,500,200);
-            
+
             frame.add(label);
             frame.pack();
             frame.setVisible(true);
+        }
+        if(ae.getSource() == selectLevel)
+        {
+            levelScreen=true;
+            startButton.setVisible(false);
+            instructionButton.setVisible(false);
+            selectLevel.setVisible(false);
+            retryButton.setVisible(false);
+            generator.setLevel(0);
         }
     }
 
@@ -148,7 +169,38 @@ public class GUI extends Applet implements ActionListener, MouseListener
     public void paint(Graphics g)
     {      
         graphics.clearRect(0, 0, WIDTH, HEIGHT);
-        if (generator.getCurrentLevel() > 0)
+        if(levelScreen)
+        {
+            boolean drawNumber=true;
+            int i=1;
+            graphics.setFont(new Font("Arial", Font.BOLD, 16));
+            for (int col = 0; col < 8; col++)
+            {
+                for (int row = 0; row < 8; row++)
+                {
+                    graphics.setColor(Color.GRAY);
+                    graphics.fillRect(row*50,col*50,50,50);
+                    graphics.setColor(Color.BLACK);
+                    graphics.drawRect(row*50, col*50, 50, 50);
+                    if(i>generator.getNumLevels())
+                        drawNumber=false;
+                    if(drawNumber)
+                    {
+                        graphics.setColor(Color.RED);
+                        graphics.fillOval(row*50,col*50,50,50);        
+                        String number = "" + i;
+                        graphics.setColor(Color.BLUE);
+                        if(i<10)
+                            graphics.drawString(number,row*50 + 21,col*50 + 30);
+                        else
+                            graphics.drawString(number,row*50 + 18,col*50 + 30);
+                        i++;
+                    }
+                }
+            }
+
+        }
+        else if (generator.getCurrentLevel() > 0)
         {
             board.drawBoard(graphics);
             graphics.setColor(Color.BLACK);
@@ -177,7 +229,38 @@ public class GUI extends Applet implements ActionListener, MouseListener
     }
 
     public void mousePressed(MouseEvent e) {
-        board.clickOnBoard(e.getX(), e.getY());
+        int xPos= e.getX();
+        int yPos= e.getY();
+
+        if(generator.getCurrentLevel()>0)
+            board.clickOnBoard(xPos, yPos);
+        else if (levelScreen)
+        {
+            int i=0;         
+            outerLoop:
+            for(int row=0; row<8; row++)
+            {
+                for(int col=0; col<8; col++)
+                {
+
+                    if(xPos > col*50
+                        && xPos < col*50 + 50
+                        && yPos > row*50 
+                        && yPos < row*50+50)
+                    {
+                        generator.setLevel(i);
+                        board = generator.nextLevel();
+                        retryButton.setVisible(true);
+                        selectLevel.setVisible(true);
+                        selectLevel.setBounds(WIDTH/2+30, 405, 80, 30);
+                        levelScreen = false;
+                        break outerLoop;
+                    }
+                    i++;
+                }
+            }
+        }
+
     }
 
     public void mouseReleased(MouseEvent e) {
@@ -193,7 +276,7 @@ public class GUI extends Applet implements ActionListener, MouseListener
     }
 
     public void mouseClicked(MouseEvent e) {
-        
+
     }
 }
 
