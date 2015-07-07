@@ -157,7 +157,7 @@ public class GUI extends Applet implements ActionListener, MouseListener
             instructionButton.setVisible(false);
             selectLevel.setVisible(false);
             retryButton.setVisible(false);
-
+            generator.setLevel(0);
         }
     }
 
@@ -231,25 +231,36 @@ public class GUI extends Applet implements ActionListener, MouseListener
     public void mousePressed(MouseEvent e) {
         int xPos= e.getX();
         int yPos= e.getY();
-        
+
         if(generator.getCurrentLevel()>0)
             board.clickOnBoard(xPos, yPos);
-        else
+        else if (levelScreen)
         {
-            int i=1;          
-            for(int x=0; x<8; x++)
+            int i=0;         
+            outerLoop:
+            for(int row=0; row<8; row++)
             {
-                for(int y=0; y<8; y++)
+                for(int col=0; col<8; col++)
                 {
-                    if((x*50< xPos && xPos < (x*50 + 50) && y*50 < yPos && yPos< (y*50+50)))
+
+                    if(xPos > col*50
+                        && xPos < col*50 + 50
+                        && yPos > row*50 
+                        && yPos < row*50+50)
                     {
                         generator.setLevel(i);
+                        board = generator.nextLevel();
+                        retryButton.setVisible(true);
+                        selectLevel.setVisible(true);
+                        selectLevel.setBounds(WIDTH/2+30, 405, 80, 30);
+                        levelScreen = false;
+                        break outerLoop;
                     }
                     i++;
                 }
             }
         }
-        
+
     }
 
     public void mouseReleased(MouseEvent e) {
