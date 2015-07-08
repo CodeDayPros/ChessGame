@@ -115,6 +115,7 @@ public class GUI extends Applet implements ActionListener, MouseListener
             retryButton.setVisible(false);
             startButton.setVisible(true);
             instructionButton.setVisible(true);
+            selectLevel.setVisible(false);
             finishButton.setVisible(false);
         }
         if (ae.getSource() == startButton)
