@@ -266,25 +266,30 @@ public class LevelMaker extends Applet implements ActionListener, MouseListener
             JFrame frame= new JFrame("Code");
             frame.setPreferredSize(new Dimension(500,500));
             frame.setLayout(null);
-            textArea.setText("Code: ");
+            textArea.setText("");
+            textArea.append("levelsList.add(new Level()" + "\n" +
+            "{  \n" +
+                "      public void generate(List<Piece> pieces, List<Point> finalLocations, int[][] positions) \n" +
+                "      {");
             for(Piece p: pieces)
             {
-                textArea.append(("\n" + "pieces.add(new " + p.getName() + "(" + (int) p.getX()/50 + "," + (int)p.getY()/50 + "));"));
+                textArea.append(("\n" + "            pieces.add(new " + p.getName() + "(" + (int) p.getX()/50 + "," + (int)p.getY()/50 + "));"));
             }
             for(Point p: finalPoints)
             {
-                textArea.append(("\n" + "finalLocations.add(new Point(" + (int)p.getX()/50 + "," + (int)p.getY()/50 + "));"));
-            }
+                textArea.append(("\n" + "            finalLocations.add(new Point(" + (int)p.getX()/50 + "," + (int)p.getY()/50 + "));"));
+            }  
             for(Point p: regPoints1)
             {
-                textArea.append(("\n" + "positions[" + (int)p.getX()/50 + "][" + (int)p.getY()/50 + "]=1;"));
+                textArea.append(("\n" + "            positions[" + (int)p.getX()/50 + "][" + (int)p.getY()/50 + "]=1;"));
             }
             for(Point p: regPoints2)
             {
-                textArea.append(("\n" + "positions[" + (int)p.getX()/50 + "][" + (int)p.getY()/50 + "]=2;"));
+                textArea.append(("\n" + "            positions[" + (int)p.getX()/50 + "][" + (int)p.getY()/50 + "]=2;"));
             }
+            textArea.append("} \n });");
             
-            textArea.setBounds(0,0,500,1000);
+            textArea.setBounds(0,0,1000,1000);
             frame.add(textArea);
 
             frame.pack();
