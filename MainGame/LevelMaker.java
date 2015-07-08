@@ -325,8 +325,7 @@ public class LevelMaker extends Applet implements ActionListener, MouseListener
 
                 graphics.setColor(Color.GRAY);
                 graphics.fillRect(x*50,y*50,50,50);
-                graphics.setColor(Color.BLACK);
-                graphics.drawRect(x*50, y*50, 50, 50);
+               
 
             }
         }
@@ -349,6 +348,15 @@ public class LevelMaker extends Applet implements ActionListener, MouseListener
                 graphics.setColor(Color.WHITE);
                 graphics.drawLine(x, y+pos, x+pos, y);
                 graphics.drawLine(x + 50, y + 50 - pos, x + 50 - pos, y + 50);
+            }
+        }
+        for (int x = 0; x < 8; x++)
+        {
+            for (int y = 0; y < 8; y++)
+            {
+                graphics.setColor(Color.BLACK);
+                graphics.drawRect(x*50, y*50, 50, 50);
+
             }
         }
 
