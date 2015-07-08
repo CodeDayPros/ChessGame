@@ -168,7 +168,7 @@ public class GUI extends Applet implements ActionListener, MouseListener
 
     public void paint(Graphics g)
     {      
-        if (graphics != null)
+        if (graphics != null && generator != null)
         {
             graphics.clearRect(0, 0, WIDTH, HEIGHT);
             if(levelScreen)
