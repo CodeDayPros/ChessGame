@@ -43,7 +43,11 @@ public class Board
     {
         return state;
     }
-
+    
+    public void setState(BoardState s)
+    {
+        state = s;
+    }
     public Piece getPiece(int x, int y)
     {
         for(Piece p: pieces)
