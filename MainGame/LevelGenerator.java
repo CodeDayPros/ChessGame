@@ -438,13 +438,13 @@ public class LevelGenerator
             {
                 public void generate(List<Piece> pieces, List<Point> finalLocations, int[][] positions)
                 {
-                    pieces.add(new Knight(4,0));
-                    finalLocations.add(new Point(4,3));
+                    pieces.add(new Knight(0,0));
+                    finalLocations.add(new Point(7,0));
                     for(int row=0; row<positions.length; row++)
                     {
                         for(int col=0; col<positions[row].length; col++)
                         {
-                            if(!(row==4 && col==0))
+                            if(!(row==0 && col==0))
                                 positions[row][col]=1;
                         }
                     }
