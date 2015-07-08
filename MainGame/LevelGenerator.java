@@ -12,7 +12,7 @@ public class LevelGenerator
     {
         currentLevel = 0;
         levelsList = new ArrayList<Level>();
-
+        // level 1
         levelsList.add(new Level()
             {
                 public void generate(List<Piece> pieces, List<Point> finalLocations, int[][] positions)
@@ -94,6 +94,8 @@ public class LevelGenerator
                     positions[2][4]=1; 
                 }
             });
+
+        // level 6
         levelsList.add(new Level()
             {
                 public void generate(List<Piece> pieces, List<Point> finalLocations, int[][] positions)
@@ -185,6 +187,7 @@ public class LevelGenerator
                     positions[4][0]=2;
                 }
             });
+        // level 11
         levelsList.add(new Level()
             {
                 public void generate(List<Piece> pieces, List<Point> finalLocations, int[][] positions)
@@ -297,6 +300,7 @@ public class LevelGenerator
                     positions[2][6]=1;
                 }
             });
+        // level 16
         levelsList.add(new Level()
             {
                 public void generate(List<Piece> pieces, List<Point> finalLocations, int[][] positions)
@@ -381,6 +385,7 @@ public class LevelGenerator
                     positions[2][7]=1;
                 }
             });
+
         levelsList.add(new Level()
             {
                 public void generate(List<Piece> pieces, List<Point> finalLocations, int[][] positions)
@@ -397,6 +402,7 @@ public class LevelGenerator
                     }
                 }
             });
+        // total of 19 levels
     }
 
     public Board nextLevel()
