@@ -30,7 +30,6 @@ public class LevelMaker extends Applet implements ActionListener, MouseListener
     private JMenuItem remove;
     private Graphics graphics;
     private Image image;
-    
 
     private Boolean[][] pieceThere;
     private Boolean[][] positionThere;
@@ -95,7 +94,7 @@ public class LevelMaker extends Applet implements ActionListener, MouseListener
         reset.addActionListener(this);
         add(reset);
         reset.setBounds(50, 405, 130, 30);
-        
+
         pieceThere = new Boolean[8][8];
         positionThere = new Boolean[8][8];
         for(int row=0; row<8; row++)
@@ -268,7 +267,7 @@ public class LevelMaker extends Applet implements ActionListener, MouseListener
             frame.setLayout(null);
             textArea.setText("");
             textArea.append("levelsList.add(new Level()" + "\n" +
-            "{  \n" +
+                "{  \n" +
                 "      public void generate(List<Piece> pieces, List<Point> finalLocations, int[][] positions) \n" +
                 "      {");
             for(Piece p: pieces)
@@ -288,7 +287,7 @@ public class LevelMaker extends Applet implements ActionListener, MouseListener
                 textArea.append(("\n" + "            positions[" + (int)p.getX()/50 + "][" + (int)p.getY()/50 + "]=2;"));
             }
             textArea.append("} \n });");
-            
+
             textArea.setBounds(0,0,1000,1000);
             frame.add(textArea);
 
@@ -327,10 +326,12 @@ public class LevelMaker extends Applet implements ActionListener, MouseListener
         {
             for (int y = 0; y < 8; y++)
             {
-
-                graphics.setColor(Color.GRAY);
+                if ((x + y) % 2 == 0)
+                    graphics.setColor(new Color(150, 150, 150));
+                else
+                    graphics.setColor(new Color(120, 120, 120));
                 graphics.fillRect(x*50,y*50,50,50);
-               
+
 
             }
         }
