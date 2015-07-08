@@ -84,7 +84,7 @@ public class GUI extends Applet implements ActionListener, MouseListener
                 {
                     if (board != null && board.getState() == BoardState.WON)
                     {
-                        if (generator.getCurrentLevel() == 15)
+                        if (generator.getCurrentLevel() == generator.getNumLevels())
                             finishButton.setVisible(true);
                         else
                             nextLevelButton.setVisible(true);
