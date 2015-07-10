@@ -254,6 +254,29 @@ public class LevelGenerator
             {  
                 public void generate(List<Piece> pieces, List<Point> finalLocations, int[][] positions) 
                 {
+                    pieces.add(new Knight(1,3));
+                    pieces.add(new Knight(1,4));
+                    pieces.add(new Rook(3,7));
+                    finalLocations.add(new Point(5,7));
+                    finalLocations.add(new Point(6,0));
+                    finalLocations.add(new Point(2,0));
+                    positions[3][4]=1;
+                    positions[3][3]=1;
+                    positions[5][3]=2;
+                    positions[5][7]=1;
+                    positions[4][1]=1;
+                    positions[6][0]=1;
+                    positions[5][5]=1;
+                    positions[2][0]=1;
+                    positions[0][1]=1;
+                    positions[6][5]=2;
+                    positions[2][2]=2;
+                } 
+            });
+        levelsList.add(new Level()
+            {  
+                public void generate(List<Piece> pieces, List<Point> finalLocations, int[][] positions) 
+                {
                     pieces.add(new Knight(0,7));
                     pieces.add(new Queen(5,1));
                     pieces.add(new Queen(6,7));
@@ -270,8 +293,10 @@ public class LevelGenerator
                     positions[4][0]=1;
                     positions[7][2]=1;
                     positions[3][1]=1;
-                    positions[3][7]=1;} 
+                    positions[3][7]=1;
+                } 
             });
+        // level 16
         levelsList.add(new Level()
             {
                 public void generate(List<Piece> pieces, List<Point> finalLocations, int[][] positions)
@@ -298,8 +323,7 @@ public class LevelGenerator
                     positions[7][7]=1;
                 }
             });
-        // level 16
-        levelsList.add(new Level()
+           levelsList.add(new Level()
             {
                 public void generate(List<Piece> pieces, List<Point> finalLocations, int[][] positions)
                 {
@@ -323,7 +347,7 @@ public class LevelGenerator
                     positions[2][6]=1;
                 }
             });
-        
+
         levelsList.add(new Level()
             {
                 public void generate(List<Piece> pieces, List<Point> finalLocations, int[][] positions)
@@ -473,7 +497,7 @@ public class LevelGenerator
                     }
                 }
             });
-        // total of 21 levels
+        // total of 22 levels
     }
 
     public Board nextLevel()
