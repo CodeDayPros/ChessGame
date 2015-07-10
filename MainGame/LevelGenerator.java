@@ -251,6 +251,28 @@ public class LevelGenerator
                 }
             });
         levelsList.add(new Level()
+            {  
+                public void generate(List<Piece> pieces, List<Point> finalLocations, int[][] positions) 
+                {
+                    pieces.add(new Knight(0,7));
+                    pieces.add(new Queen(5,1));
+                    pieces.add(new Queen(6,7));
+                    finalLocations.add(new Point(4,0));
+                    finalLocations.add(new Point(7,2));
+                    finalLocations.add(new Point(3,7));
+                    positions[6][1]=1;
+                    positions[1][5]=1;
+                    positions[2][6]=1;
+                    positions[4][5]=1;
+                    positions[3][4]=1;
+                    positions[5][3]=1;
+                    positions[6][4]=1;
+                    positions[4][0]=1;
+                    positions[7][2]=1;
+                    positions[3][1]=1;
+                    positions[3][7]=1;} 
+            });
+        levelsList.add(new Level()
             {
                 public void generate(List<Piece> pieces, List<Point> finalLocations, int[][] positions)
                 {
@@ -276,6 +298,7 @@ public class LevelGenerator
                     positions[7][7]=1;
                 }
             });
+        // level 16
         levelsList.add(new Level()
             {
                 public void generate(List<Piece> pieces, List<Point> finalLocations, int[][] positions)
@@ -300,7 +323,7 @@ public class LevelGenerator
                     positions[2][6]=1;
                 }
             });
-        // level 16
+        
         levelsList.add(new Level()
             {
                 public void generate(List<Piece> pieces, List<Point> finalLocations, int[][] positions)
@@ -450,7 +473,7 @@ public class LevelGenerator
                     }
                 }
             });
-        // total of 20 levels
+        // total of 21 levels
     }
 
     public Board nextLevel()
