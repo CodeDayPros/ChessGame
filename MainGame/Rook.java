@@ -1,8 +1,3 @@
-
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,16 +8,9 @@ public class Rook extends Piece
         super(x,y);
     }
 
-    public BufferedImage getImage()
+    public String getImagePath()
     {
-
-        try {
-            BufferedImage image= ImageIO.read(new File("Rook.png"));
-            return image;
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return null;
+        return "Rook.png";
     }
 
     public String getName()

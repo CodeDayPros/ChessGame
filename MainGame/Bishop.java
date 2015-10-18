@@ -1,9 +1,3 @@
-
-
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,16 +8,9 @@ public class Bishop extends Piece
         super(x,y);
     }
 
-    public BufferedImage getImage()
+    public String getImagePath()
     {
-
-        try {
-            BufferedImage image= ImageIO.read(new File("Bishop.png"));
-            return image;
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return null;
+        return "Bishop.png";
     }
 
     public String getName()

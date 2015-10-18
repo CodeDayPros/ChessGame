@@ -1,14 +1,3 @@
-
-/**
- * Write a description of class Knight here.
- * 
- * @author (your name) 
- * @version (a version number or a date)
- */
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,16 +8,9 @@ public class Knight extends Piece
         super(x,y);
     }
 
-    public BufferedImage getImage()
+    public String getImagePath()
     {
-
-        try {
-            BufferedImage image= ImageIO.read(new File("Knight.png"));
-            return image;
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return null;
+        return "Knight.png";
     }
 
     public String getName()
