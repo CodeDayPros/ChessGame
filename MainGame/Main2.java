@@ -9,7 +9,7 @@ public class Main2 // for copy/paste funconality bc apparently java applets cann
     {
         JFrame frame = new JFrame();
         final Applet applet = new LevelMaker();
-        frame.setSize(440, 500);
+        frame.setSize(430, 550);
 
         frame.getContentPane().add(applet);
         frame.addWindowListener(new WindowAdapter() {

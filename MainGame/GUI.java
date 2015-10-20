@@ -124,6 +124,7 @@ public class GUI extends Applet implements ActionListener, MouseListener
             startButton.setVisible(false);
             instructionButton.setVisible(false);
             retryButton.setVisible(true);
+            retryButton.setEnabled(true);
             selectLevel.setVisible(true);
             selectLevel.setBounds(WIDTH/2+30, 405, 80, 30);
         }

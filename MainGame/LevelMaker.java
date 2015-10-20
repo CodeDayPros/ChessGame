@@ -17,8 +17,8 @@ import java.awt.Toolkit;
 public class LevelMaker extends Applet implements ActionListener, MouseListener
 {
     private JPopupMenu popup;
-    private final int WIDTH = 400;
-    private final int HEIGHT = 435;
+    private final int WIDTH = 450;
+    private final int HEIGHT = 550;
     private JMenuItem king;
     private JMenuItem queen;
     private JMenuItem bishop;
@@ -41,6 +41,7 @@ public class LevelMaker extends Applet implements ActionListener, MouseListener
     private JTextArea textArea;
     private Button generateCode;
     private Button reset;
+    private Button randomLevel;
     private int xPos;
     private int yPos;
     private String text;
@@ -94,6 +95,10 @@ public class LevelMaker extends Applet implements ActionListener, MouseListener
         reset.addActionListener(this);
         add(reset);
         reset.setBounds(50, 405, 130, 30);
+        randomLevel=new Button("Random Level");
+        randomLevel.addActionListener(this);
+        add(randomLevel);
+        randomLevel.setBounds(50, 445, 130, 30);
 
         pieceThere = new Boolean[8][8];
         positionThere = new Boolean[8][8];
